@@ -1,0 +1,19 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            <?php
+            if (isset($title))
+            {
+                echo $title;
+            }
+            ?>
+        </title>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>loginCss/style.css">
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
+    </head>
+    <body>

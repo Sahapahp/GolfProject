@@ -1,0 +1,70 @@
+CREATE DATABASE GolfProject;
+CREATE TABLE  Admin(
+    UserName varchar(20),
+    Pass varchar(20)
+    );
+  CREATE TABLE Employee(
+      IdEmp int,
+      UserName varchar(20),
+    Pass varchar(20),
+      FName varchar(50),
+      LName varchar(50),
+      StatusWork int,
+      Position varchar(20),
+      Price double,
+      NumEm varchar(5),
+      Address varchar(150),
+      Birthday date,
+      IdCard varchar(13),
+      StatusOnline int,
+      StatusCaddy int,
+      Phone varchar(10),
+      Email varchar(50),
+      Exp varchar(255)
+      );
+      CREATE TABLE Member(
+          IdMem int,
+           UserName varchar(20),
+    Pass varchar(20),
+      FName varchar(50),
+      LName varchar(50),
+       Address varchar(150),
+      Birthday date,
+      IdCard varchar(13),
+          StatusOnline int,
+          degree int,
+            Phone varchar(10),
+      Email varchar(50)
+          );
+         CREATE TABLE Booking(
+             Idbook int,
+            Hole int,
+             Course int,
+             Person int,
+             day date,
+             CaddyQuan int,
+             IronQuan int,
+             CarQuan int,
+             StatusBooking int
+             );
+             
+            CREATE TABLE Pay(
+                IdPay int,
+                Price double,
+                Day datetime,
+                StatusPay int
+                );
+       CREATE TABLE  IronAndCar(
+           Id int,
+           Name varchar(10),
+           Statuss int,
+           Price double
+           );
+           CREATE TABLE Borrowing(
+               IdBorw int,
+               Name varchar(10),
+               StatusBorw int
+               );
+           
+
+             

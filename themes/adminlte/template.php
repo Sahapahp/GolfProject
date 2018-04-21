@@ -44,8 +44,19 @@
 
                             </a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">
+                                <li <?php if($session_data->work == 1) echo 'style="display:none;"'?>>
+                                    <?php
+                                    $session_data = $this->session->logged_in;
+                                    $id="";
+                                    if($session_data->work == 1){
+                                       $id = $session_data->IdAdmin;
+                                    }elseif($session_data->work == 2){
+                                        $id = $session_data->IdEmp;
+                                    }else{
+                                        $id = $session_data->IdMem;
+                                    }
+                                    ?>
+                                    <a href="<?php echo base_url();?>profile?id=<?php echo $id;?>">
                                         <i class="glyphicon glyphicon-user"></i>
                                         ข้อมูลส่วนตัว
                                     </a>
@@ -98,7 +109,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="submenu-toggle">
+                        <a href="/GolfProject/Promotion" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>โปรโมชั่น</span>
                         </a>

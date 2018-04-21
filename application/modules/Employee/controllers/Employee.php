@@ -32,7 +32,7 @@ class Employee extends MX_Controller {
     public function callcaddyshow() {
         $data['employee'] = $this->Employee_model->DataCaddy();
 
-          return $this->load->view('showcaddyForEm_view',$data);
+          return $this->theme_admin->render('showcaddyForEm_view',$data);
     }
 
      public function callcaddyUse() {

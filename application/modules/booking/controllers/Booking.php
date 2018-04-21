@@ -32,7 +32,7 @@ class Booking extends MX_Controller {
      public function bookSHowEm()
     {
         $data['booking'] = $this->Booking_model->DataBooking();
-       return $this->load->view('bookshowem_view',$data);
+       return $this->theme_admin->render('bookshowem_view',$data);
     }
 
 

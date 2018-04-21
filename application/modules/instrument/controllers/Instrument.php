@@ -21,14 +21,13 @@ class Instrument extends MX_Controller {
     public function insshowEm()
     {
         $data['Instrument'] = $this->Ins_model->DataIns();
-      return  $this->load->view('insshowem_view',$data);
-        //$this->theme_admin->render('employee_view');
+      return  $this->theme_admin->render('insshowem_view',$data);
     }
 
     public function showIns()
     {
         $data['Instrument'] = $this->Ins_model->DataIns();
-      return  $this->load->view('InsShow_view',$data);
+      return  $this->theme_admin->render('InsShow_view',$data);
         //$this->theme_admin->render('employee_view');
     }
     public function formAddIns(){

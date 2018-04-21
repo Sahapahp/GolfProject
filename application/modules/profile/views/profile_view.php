@@ -19,7 +19,7 @@
                         <span class="glyphicon glyphicon-th"></span>
                         <span>ข้อมูลส่วนตัว</span>
                     </strong>
-                    <a href="#" class="btn btn-info pull-right">แก้ไขข้อมูลส่วนตัว</a>
+                    <a href="<?php echo base_url();?>Profile/profileForm?id=<?php echo $id;?>" class="btn btn-info pull-right">แก้ไขข้อมูลส่วนตัว</a>
                 </div>
                 <div class="panel-body row" id="bodyProfile">
 

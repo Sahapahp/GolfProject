@@ -25,8 +25,8 @@ class Welcome extends MX_Controller {
     }
 
     public function index() {
-        
-        $this->load->view('index');
+        $data['promotion'] = $this->Index_model->getPromotion();
+        $this->load->view('index',$data);
         
     }
 

@@ -12,11 +12,16 @@
  * @author Pimai1SM
  */
 class Index_model extends CI_Model{
-    
-    private $db;
+ 
     public function __construct() {
         parent::__construct();
     }
     
+    public function getPromotion(){
+            $this->db->select('*');
+            $this->db->from('promotion');
+            $this->db->where('`StartDay` <= DATE(now()) AND `EndDay` >= DATE(now())');
+            return $this->db->get()->result();
+        }
    
 }

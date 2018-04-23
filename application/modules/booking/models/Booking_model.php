@@ -1,9 +1,6 @@
 <?php 
 class Booking_model extends CI_Model {
 
-        
-
-       
           public function insertBooking($data)
         {
                return $this->db->insert('booking', $data);

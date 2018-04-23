@@ -68,8 +68,10 @@
 <div id="content">
 <div id="sidebar">
 <div class="sidebox">
-<h1><font color="green">โปรโมชั่น</font></h1>
-<p>ทุกวันพุธ Sport Day ลดค่ากรีน 500.- ทุกรอบ!!</p>
+    <h1><font color="green">โปรโมชั่น</font></h1>
+    <?php foreach ( $promotion as $key ): ?>
+<p> <?php echo $key->namePro; ?></p>
+<?php endforeach; ?>
 </div>
 <div class="sidebox">
 <h1 class="clear"> <font color="green">เมนู</font></h1>

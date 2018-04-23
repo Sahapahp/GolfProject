@@ -64,7 +64,7 @@ class Booking extends MX_Controller {
 
            $dataB=$this->Booking_model->dataPrice();
 
-           return $this->load->view('addbook_view', $dataB[0]);
+           return $this->theme_admin->render('addbook_view', $dataB[0]);
 
     }
 

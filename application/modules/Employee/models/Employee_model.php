@@ -2,7 +2,6 @@
 
 class Employee_model extends CI_Model {
 
-   
     public function insertEmp($data, $username) {
         if ($this->checkData($username) == 0) {
             $count = $this->db->insert('employee', $data);
@@ -56,12 +55,43 @@ class Employee_model extends CI_Model {
 
         return false;
     }
-    
-    public function getEmp($id){
-            $this->db->select('*');
-            $this->db->from('employee');
-            $this->db->where('IdEmp',$id);
-            return $this->db->get()->result();
+
+    public function getEmp($id) {
+        $this->db->select('*');
+        $this->db->from('employee');
+        $this->db->where('IdEmp', $id);
+        return $this->db->get()->result();
+    }
+
+    public function list_priceItem() {
+        $this->db->select('*');
+        $this->db->from('priceitem');
+        return $this->db->get()->result();
+    }
+
+    public function list_priceTime() {
+        $this->db->select('*');
+        $this->db->from('pricetime');
+        return $this->db->get()->result();
+    }
+
+    public function setPriceTime($data) {
+        $this->db->trans_begin();
+        for ($i = 0; $i < count($data); $i++) {
+            $this->db->where("id", $i + 1);
+            $this->db->set("price", $data[$i]);
+            $this->db->update('pricetime');
         }
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db->trans_rollback();
+        } else {
+            return$this->db->trans_commit();
+        }
+    }
+    
+    public function setPriceItem($data) {
+        $this->db->where('id',1);
+        return $this->db->update('priceitem', $data);
+    }
 
 }

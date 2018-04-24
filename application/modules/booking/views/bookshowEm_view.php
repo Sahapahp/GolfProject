@@ -17,17 +17,18 @@
             <th class="text-center">หลุม</th>
             <th class="text-center">วัน</th>
             <th class="text-center">เวลา</th>
+            <th class="text-center">การชำระ</th>
             <th class="text-center" style="width: 100px;">จัดการ</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th class="text-center">ID</th>
-            <th class="text-center">ชื่อผู้ใช้</th>
-            <th class="text-center">ชื่อ</th>
-            <th class="text-center">นามสกุล</th>
-            <th class="text-center">ตำแหน่ง</th>
-            <!-- <th class="text-center">สถานะ</th> -->
+            <th class="text-center">ชื่อ-สกุล</th>
+            <th class="text-center">หลุม</th>
+            <th class="text-center">วัน</th>
+            <th class="text-center">เวลา</th>
+            <th class="text-center">การชำระ</th>
             <th class="text-center" style="width: 100px;">จัดการ</th>
           </tr>
         </tfoot>
@@ -52,15 +53,23 @@
                 }else{
                  $key->OnlineStatus="ไม่ใช้งาน";
                }?>  -->
+               
+               <?php if ($key->BookStatus==true) {
+                  $key->BookStatus="ชำระแล้ว";
+                }else{
+                 $key->BookStatus="ยังไม่ชำระ";
+               }?>
 
 			<?php echo "<td class='text-center'>" .$key->IdBooking .
       "<td class='text-center'>".$key->fname  ." ".  $key->lname.
       "</td> <td class='text-center'>". $key->Hole ."</td> "; ?>
 			<?php echo "<td class='text-center'>" .$key->DayBook .
       "</td> <td class='text-center'>". $key->Timebook ."</td>"; ?>
+               <?php echo "<td class='text-center'>" .$key->BookStatus .
+      "</td>"; ?>
        <td>
              <div class="btn-group text-center">
-                <a href="edit_user.php?id=9" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">
+                <a href="Booking/formaddbook?id=<?php echo $key->IdBooking; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">
                   <i class="glyphicon glyphicon-pencil"></i>
                </a>
                 <a href="booking/delete/?id=<?php echo $key->IdBooking; ?>" onClick="javascript:return confirm('คุณต้องการลบข้อมูลใช่หรือไม่');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="ลบ">

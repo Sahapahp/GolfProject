@@ -12,7 +12,7 @@
 
         <div class="post"> <a name="TemplateInfo"></a>
 
-            <form action="/action_page.php" >
+            <form >
 
                 <div class="form-group">
                     <label>ชื่อ :</label>
@@ -109,7 +109,12 @@
 
                 <div class="form-group">
                     <label >ราคารวม :</label>
-                    <input  class="form-control"type="text" class="" name="email" disabled>
+                    <input  class="form-control" type="text" class="" name="sumTotal" id="sumTotal" readonly>
+                </div>
+                <div class="form-group">
+                    <label>การชำระเงิน:</label>
+                    <input id="pay1" type="radio" name="pay"  value="1" checked>ชำระแล้ว
+                    <input id="pay0" type="radio" name="pay" value="0">ยังไม่ชำระ
                 </div>
                 <button id="calPrice" type="button" class="btn btn-info pull" />คำนวณราคา</button>
                 <button type="submit" class=" btn btn-info pull">ตกลง</button>
@@ -135,6 +140,30 @@
                 '<option value="4">17.00-19.00</option>';
         $("#timeplay").children().remove().end().append(str);
     });
+    getPriceTime();
+    getPriceItem();
+    var PriceTime;
+    var PriceItem;
+    function getPriceTime() {
+        $.ajax({
+            url: "<?php echo base_url() ?>Employee/list_priceTime",
+            type: "POST"
+        }).done(function (data) {
+            var json = JSON.parse(data);
+            console.log(json);
+            PriceTime = json;
+        });
+    }
+    function getPriceItem() {
+        $.ajax({
+            url: "<?php echo base_url() ?>Employee/list_priceItem",
+            type: "POST"
+        }).done(function (data) {
+            var json = JSON.parse(data);
+            console.log(json);
+            PriceItem = json;
+        });
+    }
 
     $('#calPrice').click(function (event) {
         var datePlay = $('#datePlay').val();
@@ -145,115 +174,44 @@
         var carNum = $('#carNum').val();
         var InsNum = $('#InsNum').val();
 
-                        var PricePerson = 0;
-                        var PriceIns = 0;
-                        var PriceCar = 0;
-                        var PriceCaddy = 0;
+        var PricePerson = 0;
+        var PriceIns = 0;
+        var PriceCar = 0;
+        var PriceCaddy = 0;
 
         ///หาวัน 0-6 0=อาทิตย์
         var day = new Date(datePlay);
-        /*alert(day.getDay());*/
+        var bookDay = day.getDay();
+        if(bookDay==1||bookDay==2||bookDay==4||bookDay==5){
+            bookDay='จันทร์-อังคาร-พฤหัส-ศุกร์';
+        }else if(bookDay==6||bookDay==0){
+            bookDay='เสาร์-อาทิตย์';
+        }else if(bookDay==3){
+            bookDay='พุธ';
+        }else{ alert('date error!!!');}
+        console.log(bookDay);
+        if($('#timeplay').val()== 1){
+            time = '06.00-11.30';
+        }else if($('#timeplay').val()== 2){
+            time = '11.30-15.00';
+        }else if($('#timeplay').val()== 3){
+            time = '15.00-19.00';
+        }else {
+            time = '17.00-19.00';
+        }
+        
+        newData = getObjectByValue(PriceTime,'time_play',time);
+        console.log(newData);
+        newData = getObjectByValue(newData,'day_play',bookDay);
+console.log(newData);
 
-        //9หลุม 17.00-19.00
-
-        if (day.getDay() == 0 && timeplay == 1)
-            var sum1 = 1000;
-
-        if (day.getDay() == 1 && timeplay == 1)
-            var sum1 = 800;
-
-        if (day.getDay() == 2 && timeplay == 1)
-            var sum1 = 800;
-
-        if (day.getDay() == 3 && timeplay == 1)
-            var sum1 = 600;
-
-        if (day.getDay() == 4 && timeplay == 1)
-            var sum1 = 800;
-
-        if (day.getDay() == 5 && timeplay == 1)
-            var sum1 = 800;
-
-        if (day.getDay() == 6 && timeplay == 1)
-            var sum1 = 1000;
-        /////////18หลุม 06-11.30
-
-        if (day.getDay() == 0 && timeplay == 2)
-            var sum1 = 1500;
-
-        if (day.getDay() == 1 && timeplay == 2)
-            var sum1 = 1300;
-
-        if (day.getDay() == 2 && timeplay == 2)
-            var sum1 = 1300;
-
-        if (day.getDay() == 3 && timeplay == 2)
-            var sum1 = 1000;
-
-        if (day.getDay() == 4 && timeplay == 2)
-            var sum1 = 1300;
-
-        if (day.getDay() == 5 && timeplay == 2)
-            var sum1 = 1300;
-
-        if (day.getDay() == 6 && timeplay == 2)
-            var sum1 = 1500;
-        ////////11.30-15.00
-
-        if (day.getDay() == 0 && timeplay == 3)
-            var sum1 = 1200;
-
-        if (day.getDay() == 1 && timeplay == 3)
-            var sum1 = 1000;
-
-        if (day.getDay() == 2 && timeplay == 3)
-            var sum1 = 1000;
-
-        if (day.getDay() == 3 && timeplay == 3)
-            var sum1 = 1000;
-
-        if (day.getDay() == 4 && timeplay == 3)
-            var sum1 = 1000;
-
-        if (day.getDay() == 5 && timeplay == 3)
-            var sum1 = 1000;
-
-        if (day.getDay() == 6 && timeplay == 3)
-            var sum1 = 1000;
-
-        if (day.getDay() == 0 && timeplay == 3)
-            var sum1 = 1200;
-
-        ////// 15.00-19.00
-
-        if (day.getDay() == 0 && timeplay == 4)
-            var sum1 = 1400;
-
-        if (day.getDay() == 1 && timeplay == 4)
-            var sum1 = 1200;
-
-        if (day.getDay() == 2 && timeplay == 4)
-            var sum1 = 1200;
-
-        if (day.getDay() == 3 && timeplay == 4)
-            var sum1 = 1000;
-
-        if (day.getDay() == 4 && timeplay == 4)
-            var sum1 = 1200;
-
-        if (day.getDay() == 5 && timeplay == 4)
-            var sum1 = 1200;
-
-        if (day.getDay() == 6 && timeplay == 4)
-            var sum1 = 1400;
-
-
-        var sum = (sum1 + (person * PricePerson) + (caddyNum * PriceCaddy) + (carNum * PriceCar) + (InsNum * PriceIns));
-
-        alert(sum);
-
-
+        var sum = parseFloat(newData[0].price) + parseFloat(person * PriceItem[0].priceMember) + parseFloat(caddyNum * PriceItem[0].priceCaddy) + parseFloat(carNum * PriceItem[0].priceCar) + parseFloat(InsNum * PriceItem[0].priceIns);
+        $('#sumTotal').val(sum);
     });
-
+var getObjectByValue = function (array, key, value) {
+    return array.filter(function (object) {
+        return object[key] === value;
+    });
+};
 
 </script>

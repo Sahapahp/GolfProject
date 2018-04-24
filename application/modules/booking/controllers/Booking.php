@@ -12,7 +12,8 @@ class Booking extends MX_Controller {
     }
 
     public function index() {
-        $this->theme_admin->render('book_view');
+       $data['booking'] = $this->Booking_model->DataBooking();
+       return $this->theme_admin->render('bookshowem_view',$data);
     }
 
     public function callShow()
@@ -82,13 +83,13 @@ class Booking extends MX_Controller {
             'fname'    =>$this->input->post('fname'),
             'lname'    =>$this->input->post('lname'),
             'Phone'    =>$this->input->post('Phone'),
-           
-
-            
+            'sumtotal'    =>$this->input->post('sumTotal'),
+            'BookStatus'    =>$this->input->post('pay')
         );
         /*$this->load->model('Employee_model');*/
-         $this->Booking_model->insertBooking($data);
-        redirect('Booking/bookSHowEm','refresh');
+         $result = $this->Booking_model->insertBooking($data);
+         echo json_encode($result);
+//        redirect('Booking/bookSHowEm','refresh');
 
 
     }

@@ -258,5 +258,16 @@ class Employee extends MX_Controller {
         $result = $this->Employee_model->setPriceItem($data);
         echo json_encode($result);
     }
+    
+    public function list_Caddy(){
+        $result = $this->Employee_model->list_Caddy();
+        echo json_encode($result);
+    }
+    
+    public function workCaddy(){
+        $result['Caddy'] = $this->Employee_model->workCaddy();
+        $this->theme_admin->render('workCaddy_view', $result);
+//        echo json_encode($result);
+    }
 
 }

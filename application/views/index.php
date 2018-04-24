@@ -79,7 +79,7 @@
 <li><a href="<?php echo base_url();?>" id="current" class="top">หน้าแรก</a></li>
 <li><a href="<?php echo base_url();?>Login/loginAll">เข้าสู่ระบบ</a></li>
 <li><a href="<?php echo base_url();?>Regis/callformregis">สมัครสมาชิก</a></li>
-<li><a href="<?php echo base_url();?>Booking/callbookForm">จอง</a></li>
+<li><a href="<?php echo base_url();?>booking/bookshowem">จอง</a></li>
 <li><a href="<?php echo base_url();?>Regis/showimg">รูปภาพสนาม</a></li>
 </li>
 </ul>
@@ -146,7 +146,7 @@ date</th>
 <ul>
 <li><a href="<?php echo base_url();?>" id="current">หน้าแรก</a></li>
 <li><a href="<?php echo base_url();?>Regis/callformregis">สมัครสมาชิก</a></li>
-<li><a href="<?php echo base_url();?>Booking/callbookForm">จอง</a></li>
+<li><a href="<?php echo base_url();?>booking/bookshowem">จอง</a></li>
 <li><a href="<?php echo base_url();?>Regis/showimg">รูปภาพสนาม</a></li>
 </ul>
 </div>

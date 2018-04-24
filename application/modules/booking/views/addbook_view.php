@@ -1,5 +1,10 @@
 
-
+<?php
+$id = "";
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+?>
 <?php echo form_open('Booking/validate'); ?>
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
@@ -84,7 +89,7 @@
                         <option value="10">10</option>
                     </select> 
                 </div>
-
+                <div id="selectCaddy"></div>
                 <div class="form-group">
                     <label>รถกอล์ฟ :</label>
                     <select class="form-control" id="carNum" name="CarNum">
@@ -97,7 +102,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label >ไม้กอล์ฟ:</label>
+                    <label >ไม้กอล์ฟ :</label>
                     <select class="form-control" id="InsNum" name="InsNum">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -111,11 +116,16 @@
                     <label >ราคารวม :</label>
                     <input  class="form-control" type="text" class="" name="sumTotal" id="sumTotal" readonly>
                 </div>
-                <div class="form-group">
-                    <label>การชำระเงิน:</label>
-                    <input id="pay1" type="radio" name="pay"  value="1" checked>ชำระแล้ว
-                    <input id="pay0" type="radio" name="pay" value="0">ยังไม่ชำระ
-                </div>
+                <?php
+                $session_data = $this->session->logged_in;
+                if ($session_data->work != 3) {
+                    ?>
+                    <div class="form-group">
+                        <label>การชำระเงิน:</label>
+                        <input id="pay1" type="radio" name="pay"  value="1" checked>ชำระแล้ว
+                        <input id="pay0" type="radio" name="pay" value="0">ยังไม่ชำระ
+                    </div>
+                <?php } ?>
                 <button id="calPrice" type="button" class="btn btn-info pull" />คำนวณราคา</button>
                 <button type="submit" class=" btn btn-info pull">ตกลง</button>
 
@@ -140,10 +150,24 @@
                 '<option value="4">17.00-19.00</option>';
         $("#timeplay").children().remove().end().append(str);
     });
+    $('#caddyNum').change(function (event) {
+        selectCaddy($('#caddyNum').val());
+    });
     getPriceTime();
     getPriceItem();
     var PriceTime;
     var PriceItem;
+    id = '<?php echo $id; ?>';
+    if (id) {
+        $.ajax({
+            url: "<?php echo base_url() ?>Booking/get_Booking",
+            type: "POST",
+            data: {id: id}
+        }).done(function (data) {
+            var json = JSON.parse(data);
+            console.log(json);
+        });
+    }
     function getPriceTime() {
         $.ajax({
             url: "<?php echo base_url() ?>Employee/list_priceTime",
@@ -182,36 +206,60 @@
         ///หาวัน 0-6 0=อาทิตย์
         var day = new Date(datePlay);
         var bookDay = day.getDay();
-        if(bookDay==1||bookDay==2||bookDay==4||bookDay==5){
-            bookDay='จันทร์-อังคาร-พฤหัส-ศุกร์';
-        }else if(bookDay==6||bookDay==0){
-            bookDay='เสาร์-อาทิตย์';
-        }else if(bookDay==3){
-            bookDay='พุธ';
-        }else{ alert('date error!!!');}
+        if (bookDay == 1 || bookDay == 2 || bookDay == 4 || bookDay == 5) {
+            bookDay = 'จันทร์-อังคาร-พฤหัส-ศุกร์';
+        } else if (bookDay == 6 || bookDay == 0) {
+            bookDay = 'เสาร์-อาทิตย์';
+        } else if (bookDay == 3) {
+            bookDay = 'พุธ';
+        } else {
+            alert('date error!!!');
+        }
         console.log(bookDay);
-        if($('#timeplay').val()== 1){
+        if ($('#timeplay').val() == 1) {
             time = '06.00-11.30';
-        }else if($('#timeplay').val()== 2){
+        } else if ($('#timeplay').val() == 2) {
             time = '11.30-15.00';
-        }else if($('#timeplay').val()== 3){
+        } else if ($('#timeplay').val() == 3) {
             time = '15.00-19.00';
-        }else {
+        } else {
             time = '17.00-19.00';
         }
-        
-        newData = getObjectByValue(PriceTime,'time_play',time);
+
+        newData = getObjectByValue(PriceTime, 'time_play', time);
         console.log(newData);
-        newData = getObjectByValue(newData,'day_play',bookDay);
-console.log(newData);
+        newData = getObjectByValue(newData, 'day_play', bookDay);
+        console.log(newData);
 
         var sum = parseFloat(newData[0].price) + parseFloat(person * PriceItem[0].priceMember) + parseFloat(caddyNum * PriceItem[0].priceCaddy) + parseFloat(carNum * PriceItem[0].priceCar) + parseFloat(InsNum * PriceItem[0].priceIns);
         $('#sumTotal').val(sum);
     });
-var getObjectByValue = function (array, key, value) {
-    return array.filter(function (object) {
-        return object[key] === value;
-    });
-};
+
+    function selectCaddy(loop) {
+        $.ajax({
+            url: "<?php echo base_url() ?>Employee/list_Caddy",
+            type: "POST"
+        }).done(function (data) {
+            var json = JSON.parse(data);
+            console.log(json);
+            var opts = "";
+            for (j = 0; j < loop; j++) {
+                opts += '<select class="form-control" id="selectCaddy'+(j+1)+'" name="selectCaddy'+(j+1)+'">';
+                opts += '<option value="">เลือกแคดดี้</option>';
+                for (var i = 0; i < json.length; i++) {
+                    opts += "<option value='" + json[i].IdEmp + "'>" + json[i].FName+" "+ json[i].LName + "</option>";
+                }
+                opts += '</select>';
+            }
+            $("#selectCaddy").html(opts+'<br>');
+//            $("#selectCaddy").children().remove().end().append(opts);
+        });
+    }
+
+    var getObjectByValue = function (array, key, value) {
+        return array.filter(function (object) {
+            return object[key] === value;
+        });
+    };
 
 </script>

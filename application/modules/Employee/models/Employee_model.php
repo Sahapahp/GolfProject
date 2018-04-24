@@ -1,7 +1,7 @@
 <?php
 
 class Employee_model extends CI_Model {
-
+    
     public function insertEmp($data, $username) {
         if ($this->checkData($username) == 0) {
             $count = $this->db->insert('employee', $data);
@@ -62,6 +62,15 @@ class Employee_model extends CI_Model {
         $this->db->where('IdEmp', $id);
         return $this->db->get()->result();
     }
+    
+    
+
+        public function list_Caddy() {
+        $this->db->select('*');
+        $this->db->from('employee');
+        $this->db->where('Position = 1');
+        return $this->db->get()->result();
+    }
 
     public function list_priceItem() {
         $this->db->select('*');
@@ -92,6 +101,12 @@ class Employee_model extends CI_Model {
     public function setPriceItem($data) {
         $this->db->where('id',1);
         return $this->db->update('priceitem', $data);
+    }
+    
+    public function workCaddy() {
+        $session_data = $this->session->logged_in;
+        $query = $this->db->query("SELECT b.`IdBooking`, b.`Hole`, b.`Course`, b.`Person`, b.`DayBook`, b.`Timebook`, b.`CaddyNum`, b.`InsNum`, b.`CarNum`, b.`sumtotal`, b.`BookStatus`, b.`fname`, b.`lname`, b.`Phone`, b.`IdMem`, b.`IdEmp`, b.`IdPro` FROM `workcaddy` w JOIN `booking` b ON b.IdBooking = w.idBooking JOIN employee e on w.idCaddy = e.IdEmp where e.IdEmp = ".$session_data->IdEmp." AND b.`DayBook` >= now() ORDER by b.`DayBook`");
+        return $query->result();
     }
 
 }

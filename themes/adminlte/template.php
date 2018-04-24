@@ -44,25 +44,25 @@
 
                             </a>
                             <ul class="dropdown-menu">
-                                <li <?php if($session_data->work == 1) echo 'style="display:none;"'?>>
+                                <li <?php if ($session_data->work == 1) echo 'style="display:none;"' ?>>
                                     <?php
                                     $session_data = $this->session->logged_in;
-                                    $id="";
-                                    if($session_data->work == 1){
-                                       $id = $session_data->IdAdmin;
-                                    }elseif($session_data->work == 2){
+                                    $id = "";
+                                    if ($session_data->work == 1) {
+                                        $id = $session_data->IdAdmin;
+                                    } elseif ($session_data->work == 2) {
                                         $id = $session_data->IdEmp;
-                                    }else{
+                                    } else {
                                         $id = $session_data->IdMem;
                                     }
                                     ?>
-                                    <a href="<?php echo base_url();?>profile?id=<?php echo $id;?>">
+                                    <a href="<?php echo base_url(); ?>profile?id=<?php echo $id; ?>">
                                         <i class="glyphicon glyphicon-user"></i>
                                         ข้อมูลส่วนตัว
                                     </a>
                                 </li>
                                 <li class="last">
-                                    <a href="/GolfProject/Login/Logout">
+                                    <a href="<?php echo base_url();?>Login/Logout">
                                         <i class="glyphicon glyphicon-off"></i>
                                         ออกจากระบบ
                                     </a>
@@ -79,39 +79,15 @@
             <?php if ($session_data->work == 2) { ?>
                 <ul>
                     <li>
-                        <a href="/GolfProject/Member/callemtyEm" class="submenu-toggle">
+                        <a href="<?php echo base_url();?>Member/callemtyEm" class="submenu-toggle">
                             <i class="glyphicon glyphicon-home"></i>
                             <span>หน้าแรก</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/GolfProject/Employee/callcaddyshow" class="submenu-toggle">
-                            <i class="glyphicon glyphicon-user"></i>
-                            <span>จัดการแคดดี้</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/GolfProject/member/memShowEm" class="submenu-toggle">
-                            <i class="glyphicon glyphicon-user"></i>
-                            <span>จัดการสมาชิก</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/GolfProject/booking/bookshowem" class="submenu-toggle">
+                        <a href="<?php echo base_url();?>booking/bookshowem" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
-                            <span>การจอง</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/GolfProject/Instrument/insshowem" class="submenu-toggle">
-                            <i class="glyphicon glyphicon-th-list"></i>
-                            <span>จัดการอุปกรณ์</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/GolfProject/Promotion" class="submenu-toggle">
-                            <i class="glyphicon glyphicon-th-list"></i>
-                            <span>โปรโมชั่น</span>
+                            <span>จัดการการจอง</span>
                         </a>
                     </li>
                     <li>
@@ -120,14 +96,53 @@
                             <span>บันทึกเช่า-คืนอุปกรณ์</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="<?php echo base_url();?>member/memShowEm" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>จัดการสมาชิก</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url();?>Employee/callcaddyshow" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>จัดการแคดดี้</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="<?php echo base_url();?>Instrument/insshowem" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                            <span>จัดการอุปกรณ์</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url();?>Promotion" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                            <span>จัดการโปรโมชั่น</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url();?>Employee/price" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                            <span>จัดการราคา</span>
+                        </a>
+                    </li>
                 </ul>
             <?php } elseif ($session_data->work == 3) { ?>
                 <ul>
+                    <li>
+                        <a href="<?php echo base_url();?>booking/bookshowem" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                            <span>จัดการการจอง</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>รายการจอง</span>
                         </a>
+                    </li>
+                    <li>
                         <a href="#" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>ประวัติการจอง</span>
@@ -137,19 +152,19 @@
             <?php } elseif ($session_data->work == 1) { ?>
                 <ul>
                     <li>
-                        <a href="/GolfProject/Employee/callemty" class="submenu-toggle">
+                        <a href="<?php echo base_url();?>Employee/callemty" class="submenu-toggle">
                             <i class="glyphicon glyphicon-home"></i>
                             <span>หน้าแรก</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/GolfProject/Employee/callshow" class="submenu-toggle">
+                        <a href="<?php echo base_url();?>Employee/callshow" class="submenu-toggle">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการพนักงาน</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/GolfProject/Member/callshow">
+                        <a href="<?php echo base_url();?>Member/callshow">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการสมาชิก</span>
                         </a>

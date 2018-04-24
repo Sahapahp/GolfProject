@@ -22,7 +22,7 @@
     </head>
     <body>
         <header id="header">
-            <div class="logo pull-left">ระบบจัดการสนามกอล์ฟ</div>
+            <div class="logo pull-left"><a href="<?php echo base_url(); ?>" style="color: white;">ระบบจัดการสนามกอล์ฟ</a></div>
             <div class="header-content">
                 <div class="header-date pull-left">
 
@@ -62,7 +62,7 @@
                                     </a>
                                 </li>
                                 <li class="last">
-                                    <a href="<?php echo base_url();?>Login/Logout">
+                                    <a href="<?php echo base_url(); ?>Login/Logout">
                                         <i class="glyphicon glyphicon-off"></i>
                                         ออกจากระบบ
                                     </a>
@@ -77,15 +77,16 @@
             <!-- admin menu -->
             <?php $session_data = $this->session->logged_in; ?>
             <?php if ($session_data->work == 2) { ?>
+            <?php if ($session_data->Position == 0) { ?>
                 <ul>
                     <li>
-                        <a href="<?php echo base_url();?>Member/callemtyEm" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Member/callemtyEm" class="submenu-toggle">
                             <i class="glyphicon glyphicon-home"></i>
                             <span>หน้าแรก</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>booking/bookshowem" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>booking/bookshowem" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>จัดการการจอง</span>
                         </a>
@@ -97,47 +98,54 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>member/memShowEm" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>member/memShowEm" class="submenu-toggle">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการสมาชิก</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>Employee/callcaddyshow" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Employee/callcaddyshow" class="submenu-toggle">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการแคดดี้</span>
                         </a>
                     </li>
-                    
+
                     <li>
-                        <a href="<?php echo base_url();?>Instrument/insshowem" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Instrument/insshowem" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>จัดการอุปกรณ์</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>Promotion" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Promotion" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>จัดการโปรโมชั่น</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>Employee/price" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Employee/price" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>จัดการราคา</span>
                         </a>
                     </li>
                 </ul>
-            <?php } elseif ($session_data->work == 3) { ?>
-                <ul>
+            <?php 
+            }else{
+                ?>
+            <ul>
                     <li>
-                        <a href="<?php echo base_url();?>booking/bookshowem" class="submenu-toggle">
+                        <a href="<?php echo base_url();?>Employee/workCaddy" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
-                            <span>จัดการการจอง</span>
+                            <span>ตารางออกรอบ</span>
                         </a>
                     </li>
+                </ul>
+            <?php
+            }
+            } elseif ($session_data->work == 3) { ?>
+                <ul>
                     <li>
-                        <a href="#" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>booking/bookshowem" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>รายการจอง</span>
                         </a>
@@ -152,19 +160,19 @@
             <?php } elseif ($session_data->work == 1) { ?>
                 <ul>
                     <li>
-                        <a href="<?php echo base_url();?>Employee/callemty" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Employee/callemty" class="submenu-toggle">
                             <i class="glyphicon glyphicon-home"></i>
                             <span>หน้าแรก</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>Employee/callshow" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Employee/callshow" class="submenu-toggle">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการพนักงาน</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>Member/callshow">
+                        <a href="<?php echo base_url(); ?>Member/callshow">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการสมาชิก</span>
                         </a>

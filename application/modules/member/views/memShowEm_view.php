@@ -5,7 +5,9 @@
                                 <span class="glyphicon glyphicon-th"></span>
                                 <span>สมาชิก</span>
                             </strong>
+                            <a href="printMember" class="btn btn-info pull-right">พิมพ์รายงานสมาชิก</a>
                             <a href="formAddMem" class="btn btn-info pull-right">เพิ่มสมาชิกใหม่</a>
+                            
                         </div>
                         <div class="panel-body">
                             <table id="example" class="display" cellspacing="0" width="100%">
@@ -50,9 +52,11 @@
                                                         <a href="formUpdateMem?id=<?= $key->IdMem ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">
                                                             <i class="glyphicon glyphicon-pencil"></i>
                                                         </a>
+                                                        
                                                         <a href="Member/delete/?id=<?php echo $key->IdMem; ?>" onClick="javascript:return confirm('คุณต้องการลบข้อมูลใช่หรือไม่');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="ลบ">
                                                             <i class="glyphicon glyphicon-remove"></i>
                                                         </a>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>

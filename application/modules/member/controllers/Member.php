@@ -213,4 +213,9 @@ class Member extends MX_Controller {
         echo json_encode($result);
     }
 
+    public function printMember(){
+        $result['member'] = $this->Member_model->DataMem();
+        $this->load->view('printMember_view',$result);
+    }
+    
 }

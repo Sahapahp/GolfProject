@@ -9,7 +9,7 @@ class Member_model extends CI_Model{
          public function DataMem()
         {
                 
-            $query = $this->db->query('SELECT IdMem,UserName,Password,FName,LName,MemPos FROM member');
+            $query = $this->db->query('SELECT * FROM member');
             return $query->result();
            
             

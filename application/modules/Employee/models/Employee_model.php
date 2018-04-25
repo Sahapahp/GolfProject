@@ -105,7 +105,7 @@ class Employee_model extends CI_Model {
     
     public function workCaddy() {
         $session_data = $this->session->logged_in;
-        $query = $this->db->query("SELECT b.`IdBooking`, b.`Hole`, b.`Course`, b.`Person`, b.`DayBook`, b.`Timebook`, b.`CaddyNum`, b.`InsNum`, b.`CarNum`, b.`sumtotal`, b.`BookStatus`, b.`fname`, b.`lname`, b.`Phone`, b.`IdMem`, b.`IdEmp`, b.`IdPro` FROM `workcaddy` w JOIN `booking` b ON b.IdBooking = w.idBooking JOIN employee e on w.idCaddy = e.IdEmp where e.IdEmp = ".$session_data->IdEmp." AND b.`DayBook` >= now() ORDER by b.`DayBook`");
+        $query = $this->db->query("SELECT b.`IdBooking`, b.`Hole`, b.`Course`, b.`Person`, b.`DayBook`, b.`Timebook`, b.`CaddyNum`, b.`InsNum`, b.`CarNum`, b.`sumtotal`, b.`BookStatus`, b.`fname`, b.`lname`, b.`Phone`, b.`IdMem`, b.`IdEmp`, b.`IdPro` FROM `workcaddy` w JOIN `booking` b ON b.IdBooking = w.idBooking JOIN employee e on w.idCaddy = e.IdEmp where e.IdEmp = ".$session_data->IdEmp." AND b.`DayBook` >= DATE(now()) ORDER by b.`DayBook`");
         return $query->result();
     }
 

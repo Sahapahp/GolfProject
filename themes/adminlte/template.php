@@ -92,7 +92,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>Instrument/rentInstrument" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>บันทึกเช่า-คืนอุปกรณ์</span>
                         </a>
@@ -151,7 +151,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="submenu-toggle">
+                        <a href="<?php echo base_url(); ?>booking/historyBooking" class="submenu-toggle">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <span>ประวัติการจอง</span>
                         </a>
@@ -172,7 +172,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url(); ?>Member/callshow">
+                        <a href="<?php echo base_url(); ?>Employee/callcaddyshow">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการสมาชิก</span>
                         </a>

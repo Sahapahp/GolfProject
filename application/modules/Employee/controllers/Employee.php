@@ -28,7 +28,6 @@ class Employee extends MX_Controller {
 
     public function callcaddyshow() {
         $data['employee'] = $this->Employee_model->DataCaddy();
-
         return $this->theme_admin->render('showcaddyForEm_view', $data);
     }
 
@@ -268,6 +267,11 @@ class Employee extends MX_Controller {
         $result['Caddy'] = $this->Employee_model->workCaddy();
         $this->theme_admin->render('workCaddy_view', $result);
 //        echo json_encode($result);
+    }
+    
+    public function printCaddy(){
+        $result['caddy'] = $this->Employee_model->DataCaddy();
+        $this->load->view('printCaddy_view',$result);
     }
 
 }

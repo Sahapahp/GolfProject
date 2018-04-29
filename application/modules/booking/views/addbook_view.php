@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label >เวลา:</label>
                     <select class="form-control" id="timeplay" name="Timebook" class="selectpicker  required">
-                        <option value="1" selected >17.00-19.00</option>
+                        <option value="4" selected >17.00-19.00</option>
                     </select>
                 </div>
 
@@ -140,7 +140,7 @@ if (isset($_GET['id'])) {
 <script type="text/javascript">
 
     $('#hole9').click(function (event) {
-        str = '<option value="1">17.00-19.00</option>';
+        str = '<option value="4">17.00-19.00</option>';
         $("#timeplay").children().remove().end().append(str);
     });
     $('#hole18').click(function (event) {

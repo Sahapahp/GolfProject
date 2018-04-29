@@ -34,8 +34,8 @@ class AuthorizeLoader {
         $byPassLoginType = array('login_fb', 'login_gg', 'login_email');
         $byPassPublic = array('docs', 'users', 'tracking', 'location', 'tracking');
         $isRegister = is_register();
-        //echo $isRegister;
-        //echo $login_type;
+//        echo $isRegister;
+//        echo $login_type;
 //        if (empty($login_type)) {
 //            if (in_array($c_class, $bypassArr)) {
 //                if ($c_class != 'authorize') {

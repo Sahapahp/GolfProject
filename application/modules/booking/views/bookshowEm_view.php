@@ -5,6 +5,11 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>รายการจอง</span>
        </strong>
+         <?php 
+         $session_data = $this->session->logged_in;
+        if ($session_data->work == 2) {
+            echo '<a href="printBooking" class="btn btn-info pull-right">พิมพ์รายงายการจอง</a>';
+        }?>
          <a href="Booking/formaddbook" class="btn btn-info pull-right">สร้างรายการจองใหม่</a>
       </div>
      <div class="panel-body">
@@ -69,12 +74,22 @@
       "</td>"; ?>
        <td>
              <div class="btn-group text-center">
+                 <?php if ($session_data->work==3) {?>
+                  <a href="booking/printDetail/?id=<?php echo $key->IdBooking; ?>" onClick="" class="btn btn-xs btn-success" data-toggle="tooltip" title="ชำระเงิน">
+                  <i class="glyphicon glyphicon-folder-open"></i>
+                </a>
+              <?php }?>
                 <a href="Booking/formaddbook?id=<?php echo $key->IdBooking; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">
                   <i class="glyphicon glyphicon-pencil"></i>
                </a>
+                 <a href="booking/printDetail/?id=<?php echo $key->IdBooking; ?>" class="btn btn-xs btn-info" data-toggle="tooltip" title="พิมพ์รายละเอียด">
+                  <i class="glyphicon glyphicon-print"></i>
+                </a>
                 <a href="booking/delete/?id=<?php echo $key->IdBooking; ?>" onClick="javascript:return confirm('คุณต้องการลบข้อมูลใช่หรือไม่');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="ลบ">
                   <i class="glyphicon glyphicon-remove"></i>
                 </a>
+                 
+                 
                 </div>
            </td>
     </tr>
@@ -88,7 +103,6 @@
      </div>
 
     </div><!-- /.content -->
-
  <script type="text/javascript">
     $(document).ready(function() {
     $('#example').DataTable();

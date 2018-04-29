@@ -78,6 +78,7 @@ class Booking extends MX_Controller {
             'Person' => $this->input->post('Person'),
             'CaddyNum' => $this->input->post('CaddyNum'),
             'CarNum' => $this->input->post('CarNum'),
+            'InsNum' => $this->input->post('InsNum'),
             'fname' => $this->input->post('fname'),
             'lname' => $this->input->post('lname'),
             'Phone' => $this->input->post('Phone'),
@@ -133,20 +134,42 @@ class Booking extends MX_Controller {
     }
 
     public function delete() {
-
-
         $id = $this->input->get('id');
-
         if ($this->Booking_model->deleteBooking($id)) {
-            return
-                    redirect('Booking/bookShowEm', 'refresh');
+            return redirect('Booking/bookShowEm', 'refresh');
         }
     }
 
+    public function list_Booking() {
+        $result = $this->Booking_model->listBooking_status();
+        echo json_encode($result);
+    }
+    
     public function get_Booking() {
         $id = $this->input->post('id');
         $result = $this->Booking_model->get_Booking($id);
         echo json_encode($result);
+    }
+    
+    public function historyBooking() {
+        $result['booking'] = $this->Booking_model->historyBooking();
+        $this->theme_admin->render('historyBooking_view', $result);
+    }
+    
+    public function printBooking() {
+        $result['booking'] = $this->Booking_model->printBooking();
+        $this->load->view('printBooking_view', $result);
+    }
+    
+    public function printDetail() {
+        $this->load->view('printDetail_view');
+    }
+    
+    public function paySuccessful() {
+        $this->load->view('payment-successful');
+    }
+    public function payCancel() {
+        $this->load->view('payment-cancelled');
     }
 
 }

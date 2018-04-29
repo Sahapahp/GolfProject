@@ -35,7 +35,32 @@ class Booking_model extends CI_Model {
         if ($session_data->work == 3) {
             $this->db->where('IdMem', $session_data->IdMem);
         }
-        $this->db->where('`DayBook`>=now()');
+        $this->db->where('`DayBook`>=DATE(now())');
+        return $this->db->get()->result();
+    }
+    
+    public function printBooking() {
+        $this->db->select('*');
+        $this->db->from('booking');
+        return $this->db->get()->result();
+    }
+    
+    public function listBooking_status() {
+        
+        $query = $this->db->query('SELECT `IdBooking`,`Person`,`DayBook`,`CaddyNum`,`InsNum`,`CarNum`,`fname`,`lname` FROM `booking` b LEFT JOIN rent_ins r on b.`IdBooking` = r.id_Booking where `DayBook` >=DATE(now()) AND r.id_Booking IS null');
+        return $query->result();
+    }
+    
+    
+    public function historyBooking() {
+        $session_data = $this->session->logged_in;
+        $this->db->select('*');
+        $this->db->from('booking');
+        if ($session_data->work == 3) {
+            $this->db->where('IdMem', $session_data->IdMem);
+        }
+        $this->db->where('`DayBook`<DATE(now())');
+        $this->db->order_by('`DayBook`','DESC');
         return $this->db->get()->result();
     }
 

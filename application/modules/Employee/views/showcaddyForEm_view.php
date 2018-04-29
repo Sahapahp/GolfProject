@@ -4,6 +4,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>พนักงาน</span>
        </strong>
+          <a href="printCaddy" class="btn btn-info pull-right">พิมพ์แคดดี้</a>
          <a href="formAddEmp" class="btn btn-info pull-right">เพิ่มแคดดี้ใหม่</a>
       </div>
      <div class="panel-body">

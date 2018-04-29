@@ -27,7 +27,7 @@ class Employee_model extends CI_Model {
         //$query = $this->db->get('admin');
         //return $query->result();
 
-        $query = $this->db->query('SELECT IdEmp,UserName,Password,FName,LName,Position,OnlineStatus FROM employee where Position=1');
+        $query = $this->db->query('SELECT * FROM employee where Position=1');
         return $query->result();
     }
 

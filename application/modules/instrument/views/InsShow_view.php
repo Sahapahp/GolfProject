@@ -2,7 +2,7 @@
         <div class="panel-heading clearfix">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>พนักงาน</span>
+            <span>อุปกรณ์</span>
           </strong>
           <a href="formAddIns" class="btn btn-info pull-right">เพิ่มอุปกรณ์ใหม่</a>
           <!-- <a href="formAddIns" class="btn btn-info pull-right">แก้ไขราคาอุปกรณ์</a> -->

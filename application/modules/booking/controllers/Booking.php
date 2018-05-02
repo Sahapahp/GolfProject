@@ -45,7 +45,7 @@ class Booking extends MX_Controller {
     public function formAddBook() {
         /* return $this->theme_admin->render('addbook_view'); */
 
-       
+
 
         $dataSum = array(
             'fname' => $this->input->post('fname'),
@@ -65,11 +65,13 @@ class Booking extends MX_Controller {
 
     public function validate() {
         $numCaddy = $this->input->post('CaddyNum');
+        $id = $this->input->post('id');
         $caddy = array();
-        for($i=1;$i<=$numCaddy;$i++){
-             array_push($caddy, $this->input->post("selectCaddy$i"));
+        for ($i = 1; $i <= $numCaddy; $i++) {
+            array_push($caddy, $this->input->post("selectCaddy$i"));
         }
         echo json_encode($caddy);
+
         $data = array(
             'DayBook' => $this->input->post('DayBook'),
             'Hole' => $this->input->post('Hole'),
@@ -86,9 +88,14 @@ class Booking extends MX_Controller {
             'BookStatus' => $this->input->post('pay')
         );
         /* $this->load->model('Employee_model'); */
-        $result = $this->Booking_model->insertBooking($data,$caddy);
+        if ($id == "") {
+            $result = $this->Booking_model->insertBooking($data, $caddy);
+        } else {
+            $result = $this->Booking_model->updateBooking($id,$data);
+        }
+
         echo json_encode($result);
-        redirect('Booking/bookSHowEm','refresh');
+        redirect('Booking/bookSHowEm', 'refresh');
     }
 
     public function validateForm() {
@@ -144,32 +151,51 @@ class Booking extends MX_Controller {
         $result = $this->Booking_model->listBooking_status();
         echo json_encode($result);
     }
-    
+
     public function get_Booking() {
         $id = $this->input->post('id');
         $result = $this->Booking_model->get_Booking($id);
         echo json_encode($result);
     }
-    
+
     public function historyBooking() {
         $result['booking'] = $this->Booking_model->historyBooking();
         $this->theme_admin->render('historyBooking_view', $result);
     }
-    
+
     public function printBooking() {
         $result['booking'] = $this->Booking_model->printBooking();
         $this->load->view('printBooking_view', $result);
     }
-    
+
     public function printDetail() {
         $this->load->view('printDetail_view');
     }
-    
+
     public function paySuccessful() {
         $this->load->view('payment-successful');
     }
+
     public function payCancel() {
         $this->load->view('payment-cancelled');
     }
-
+    
+    public function check_Booking() {
+        $datePlay = $this->input->post('datePlay');
+        $timeplay = $this->input->post('timeplay');
+        $result = $this->Booking_model->check_Booking($datePlay,$timeplay);
+        echo json_encode($result);
+    }
+    
+    public function usingHistory() {
+        $result['booking'] = $this->Booking_model->historyBooking();
+        $this->theme_admin->render('history_view', $result);
+    }
+    
+    public function setBookingStatus() {
+        $id = $this->input->post('id');
+        $result = $this->Booking_model->paySuccessful($id);
+        echo print_r($result);
+//        return redirect('Booking/bookShowEm', 'refresh');
+    }
 }

@@ -38,10 +38,10 @@
           </tr>
         </tfoot>
         <tbody>
-          <tr>
+          
            <?php if ( isset($booking) && is_array($booking) ): ?>
 			<?php foreach ( $booking as $key ): ?>
-
+<tr>
          <?php if ($key->Timebook==6) {
                   $key->Timebook="06.00 – 11.30";
                 }else if ($key->Timebook==7) 
@@ -60,13 +60,15 @@
                }?>  -->
                
                <?php if ($key->BookStatus==true) {
+                   $pay = 1;
                   $key->BookStatus="ชำระแล้ว";
                 }else{
+                    $pay = 0;
                  $key->BookStatus="ยังไม่ชำระ";
                }?>
 
 			<?php echo "<td class='text-center'>" .$key->IdBooking .
-      "<td class='text-center'>".$key->fname  ." ".  $key->lname.
+      "</td><td class='text-center'>".$key->fname  ." ".  $key->lname.
       "</td> <td class='text-center'>". $key->Hole ."</td> "; ?>
 			<?php echo "<td class='text-center'>" .$key->DayBook .
       "</td> <td class='text-center'>". $key->Timebook ."</td>"; ?>
@@ -79,15 +81,14 @@
                   <i class="glyphicon glyphicon-folder-open"></i>
                 </a>
               <?php }?>
+                 <?php if ($pay==0 ) {?>
                 <a href="Booking/formaddbook?id=<?php echo $key->IdBooking; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">
                   <i class="glyphicon glyphicon-pencil"></i>
                </a>
-                 <a href="booking/printDetail/?id=<?php echo $key->IdBooking; ?>" class="btn btn-xs btn-info" data-toggle="tooltip" title="พิมพ์รายละเอียด">
-                  <i class="glyphicon glyphicon-print"></i>
-                </a>
+                 
                 <a href="booking/delete/?id=<?php echo $key->IdBooking; ?>" onClick="javascript:return confirm('คุณต้องการลบข้อมูลใช่หรือไม่');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="ลบ">
                   <i class="glyphicon glyphicon-remove"></i>
-                </a>
+                </a><?php }?>
                  
                  
                 </div>

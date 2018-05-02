@@ -10,6 +10,8 @@ class Booking_model extends CI_Model {
         }else if ($session_data->work == 2){
             $this->db->set('IdEmp', $session_data->IdEmp);
         }
+         $this->db->set('dateAdd', 'now()', FALSE);
+         $this->db->set('dateUpdate', 'now()', FALSE);
         $this->db->insert('booking', $data);
         
         for($j=1;$j<=count($caddy);$j++){
@@ -22,11 +24,24 @@ class Booking_model extends CI_Model {
             return$this->db->trans_commit();
         }
     }
-//    private $query;
-//    public function maxBooking(){
-//        $this->query = $this->db->query("SELECT MAX(`IdBooking`) FROM `booking` limit 1");
-//        
-//    }
+    
+    public function updateBooking($id,$data) {
+        $this->db->trans_begin();
+        $session_data = $this->session->logged_in;
+        if ($session_data->work == 2){
+            $this->db->set('IdEmp', $session_data->IdEmp);
+        }
+        $this->db->set('dateUpdate', 'now()', FALSE);
+        $this->db->where('IdBooking', $id);
+        $this->db->update('booking', $data);
+        
+//        return $result;
+        if ($this->db->trans_status() === FALSE) {
+            return $this->db->trans_rollback();
+        } else {
+            return$this->db->trans_commit();
+        }
+    }
 
     public function DataBooking() {
         $session_data = $this->session->logged_in;
@@ -47,7 +62,7 @@ class Booking_model extends CI_Model {
     
     public function listBooking_status() {
         
-        $query = $this->db->query('SELECT `IdBooking`,`Person`,`DayBook`,`CaddyNum`,`InsNum`,`CarNum`,`fname`,`lname` FROM `booking` b LEFT JOIN rent_ins r on b.`IdBooking` = r.id_Booking where `DayBook` >=DATE(now()) AND r.id_Booking IS null');
+        $query = $this->db->query('SELECT `IdBooking`,`Person`,`DayBook`,`CaddyNum`,`InsNum`,`CarNum`,`fname`,`lname` FROM `booking` b LEFT JOIN rent_ins r on b.`IdBooking` = r.id_Booking where `DayBook` =DATE(now()) AND r.id_Booking IS null');
         return $query->result();
     }
     
@@ -64,11 +79,6 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result();
     }
 
-    public function updateBooking() {
-
-        return $this->db->update('employee', $this, array('IdEmp' => $_POST['IdEmp']));
-    }
-
     public function deleteBooking($id) {
         $this->db->where('IdBooking', $id);
         $this->db->delete('booking');
@@ -76,9 +86,6 @@ class Booking_model extends CI_Model {
     }
 
     public function dataPrice() {
-        //$query = $this->db->get('admin');
-        //return $query->result();
-
         $query = $this->db->query('SELECT * FROM booking');
         return $query->result();
     }
@@ -87,6 +94,20 @@ class Booking_model extends CI_Model {
         $this->db->from('booking');
         $this->db->where("IdBooking = $id");
         return $this->db->get()->result();
+    }
+    
+    public function check_Booking($datePlay,$timeplay) {
+        $this->db->select('*');
+        $this->db->from('booking');
+        if($datePlay){$this->db->where("DayBook",$datePlay);}
+        if($timeplay){$this->db->where("Timebook",$timeplay);}
+        return $this->db->get()->result();
+    }
+    
+    public function paySuccessful($id){
+        $this->db->set('BookStatus', '1');
+        $this->db->where('IdBooking', $id);
+        return $this->db->update('booking');
     }
 
 }

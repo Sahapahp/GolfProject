@@ -20,5 +20,11 @@ class Regis_model extends CI_Model {
         {
                return $this->db->insert('member', $data);
         }
-
+        public function get_Member($UserName)
+        {
+               $this->db->select('*');
+               $this->db->from('Member');
+               $this->db->where('UserName',$UserName);
+               return $this->db->get()->result();
+        }
 }

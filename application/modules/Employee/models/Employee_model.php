@@ -66,10 +66,9 @@ class Employee_model extends CI_Model {
     
 
         public function list_Caddy() {
-        $this->db->select('*');
-        $this->db->from('employee');
-        $this->db->where('Position = 1');
-        return $this->db->get()->result();
+        $caddyID = $this->input->post('day');    
+        $query= $this->db->query("SELECT * FROM employee where Position = 1 and `IdEmp` NOT IN (SELECT workcaddy.idCaddy FROM workcaddy LEFT JOIN booking ON booking.IdBooking = workcaddy.idBooking WHERE booking.DayBook = '$caddyID')");
+        return $query->result();
     }
 
     public function list_priceItem() {

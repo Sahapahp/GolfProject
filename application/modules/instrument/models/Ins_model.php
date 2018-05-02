@@ -8,9 +8,13 @@ class Ins_model extends CI_Model {
 
     public function insertRent($idBooking, $arrayIns) {
         $this->db->trans_begin();
+        
         for ($i = 0; $i < count($arrayIns); $i++) {
             $this->db->insert('rent_ins', array('id_Booking' => $idBooking, 'id_ins' => $arrayIns[$i]));
         }
+        $this->db->set('using_status', '1', FALSE);
+        $this->db->where('IdBooking', $idBooking);
+        $this->db->update('booking');
         if ($this->db->trans_status() === FALSE) {
             return $this->db->trans_rollback();
         } else {
@@ -53,7 +57,7 @@ class Ins_model extends CI_Model {
 
     public function list_rentInstrument() {
 
-        $query = $this->db->query('SELECT `IdBooking`,`fname`,`lname`,`InsNum`,`CarNum`,`status_rent`,`DayBook` FROM booking b JOIN rent_ins r on IdBooking = id_Booking GROUP by `IdBooking`');
+        $query = $this->db->query('SELECT `IdBooking`,`fname`,`lname`,`InsNum`,`CarNum`,`status_rent`,`DayBook` FROM booking b JOIN rent_ins r on IdBooking = id_Booking GROUP by `IdBooking` ORDER BY `IdBooking` DESC');
         return $query->result();
     }
 

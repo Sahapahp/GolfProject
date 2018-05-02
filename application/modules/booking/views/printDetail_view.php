@@ -76,9 +76,10 @@
                         <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
                         <input type="hidden" name="first_name" value="Sahaphap" />
                         <input type="hidden" name="last_name" value="Malit" />
-                        <input type="hidden" name="payer_email" value="pimai_1new@hotmail.com" />
-                        <input type="hidden" name="item_number" id="item_number" value="#0001" />
-                        <button type="submit"  class="btn btn-success pull-left" name="submit"><span class="glyphicon glyphicon-bitcoin"></span> Submit Payment</button>
+                        <input type="hidden" name="payer_email" value="Rachet_GolfClub@hotmail.com" />
+                        <input type="hidden" name="item_number" id="item_number" value="" />
+                        <input type="hidden" name="product_name" id="product_name" value="" />
+                        <button type="submit" id="btnSubmit" class="btn btn-success pull-left" name="submit"><span class="glyphicon glyphicon-bitcoin"></span> Submit Payment</button>
                     </form>
                     <?php }?>
                     </button>
@@ -134,8 +135,12 @@
                                 } else {
                                     time = "17.00-19.00";
                                 }
+                                if(json[0].BookStatus ==1){
+                                    $('#btnSubmit').attr('style','display:none');
+                                }
                                 $('#time').html('ช่วงเวลา : ' + time);
-
+                                $('#item_number').val(json[0].IdBooking);
+                                $('#product_name').val('ค่าเช่าสนามกอล์ฟ');
                                 $('#person').html(json[0].Person + " คน");
                                 $('#caddy').html(json[0].CaddyNum + " คน");
                                 $('#ins').html(json[0].CarNum + " ชุด");

@@ -67,13 +67,16 @@ Class Login extends MX_Controller {
 
         /* echo '<pre>';
           var_dump($session_data); */
-
+        
         if ($session_data->work == 3) {
+            $this->login_model->insertHistory();
             return redirect('/Member/callmemberuse', 'refresh');
         } elseif ($session_data->work == 2) {
+            $this->login_model->insertHistory();
             return redirect('/Member/callemtyEm', 'refresh');
         } else
-            return redirect('/Employee/callEmty', 'refresh');
+            $this->login_model->insertHistory();
+        return redirect('/Employee/callEmty', 'refresh');
 
         // return redirect('/member/callmemberuse', 'refresh');
     }

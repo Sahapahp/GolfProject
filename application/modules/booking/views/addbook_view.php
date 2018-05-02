@@ -4,6 +4,7 @@ $id = "";
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
+$session_data = $this->session->logged_in;
 ?>
 <?php echo form_open('Booking/validate'); ?>
 <div class="panel panel-default">
@@ -18,28 +19,28 @@ if (isset($_GET['id'])) {
         <div class="post"> <a name="TemplateInfo"></a>
 
             <form >
-
-                <div class="form-group">
+                <input class="form-control" id="id" type="text" name="id" style="display: none">
+                <div class="form-group" id="divFname">
                     <label>ชื่อ :</label>
-                    <input class="form-control" id="fname" type="text" name="fname" required>
+                    <input class="form-control" value="<?php if($session_data->work==3)echo $session_data->FName; ?>" id="fname" type="text" name="fname" required>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divLname">
                     <label>สกุล :</label>
-                    <input class="form-control" id="lname" type="text" name="lname" required>
+                    <input class="form-control" value="<?php if($session_data->work==3)echo $session_data->LName; ?>" id="lname" type="text" name="lname" required>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divPhone">
                     <label>เบอร์โทร :</label>
-                    <input class="form-control" id="Phone" type="text" name="Phone" required>
+                    <input class="form-control" id="Phone" value="<?php if($session_data->work==3)echo $session_data->Phone; ?>" type="text" name="Phone" required>
                 </div>
 
                 <div class="form-group">
                     <label>วัน :</label>
-                    <input class="form-control" id="datePlay" type="date" name="DayBook" required>
+                    <input class="form-control" onchange="checkBook()" id="datePlay" type="date" name="DayBook" required>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divHole">
                     <label>เลือกจำนวนหลุม:</label>
                     <input id="hole9" type="radio" name="Hole"  value="9" checked>9 หลุม
                     <input id="hole18" type="radio" name="Hole" value="18">18 หลุม 
@@ -47,15 +48,15 @@ if (isset($_GET['id'])) {
 
                 <div class="form-group">
                     <label >เวลา:</label>
-                    <select class="form-control" id="timeplay" name="Timebook" class="selectpicker  required">
+                    <select class="form-control" onchange="checkBook()" id="timeplay" name="Timebook" class="selectpicker  required">
                         <option value="4" selected >17.00-19.00</option>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divCourse">
                     <label >Course :</label>
                     <select class="form-control" id="course" name="Course">
-                        <option value="" selected></option>
+                        <option value="" selected>เลือก Course</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
@@ -66,6 +67,7 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <label >จำนวนผู้เล่น :</label>
                     <select class="form-control" id="person" name="Person">
+                        <option value="">เลือกจำนวน ผู้เล่น</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -74,9 +76,10 @@ if (isset($_GET['id'])) {
                     </select> 
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id='divCaddy'>
                     <label>จำนวนแคดดี้:</label>
                     <select class="form-control" id="caddyNum" name="CaddyNum">
+                        <option value="">เลือกจำนวน แคดดี้</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -90,9 +93,10 @@ if (isset($_GET['id'])) {
                     </select> 
                 </div>
                 <div id="selectCaddy"></div>
-                <div class="form-group">
+                <div class="form-group" id="divCar">
                     <label>รถกอล์ฟ :</label>
                     <select class="form-control" id="carNum" name="CarNum">
+                        <option value="">เลือกจำนวน รถกอล์ฟ</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -101,9 +105,10 @@ if (isset($_GET['id'])) {
                     </select> 
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divIns">
                     <label >ไม้กอล์ฟ :</label>
                     <select class="form-control" id="InsNum" name="InsNum">
+                        <option value="">เลือกจำนวน ไม้กอล์ฟ</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -127,7 +132,7 @@ if (isset($_GET['id'])) {
                     </div>
                 <?php } ?>
                 <button id="calPrice" type="button" class="btn btn-info pull" />คำนวณราคา</button>
-                <button type="submit" class=" btn btn-info pull">ตกลง</button>
+            <button type="submit" id="btnSubmit" class=" btn btn-info pull">ตกลง</button>
 
 
             </form>
@@ -166,6 +171,37 @@ if (isset($_GET['id'])) {
         }).done(function (data) {
             var json = JSON.parse(data);
             console.log(json);
+            if(json[0].Hole == 9){
+                $('#hole9').attr('checked','checked');
+                $('#hole9').click();
+            }else{
+                 $('#hole18').attr('checked','checked');
+                 $('#hole18').click();
+                 $('#Course').attr('style','display:none');
+            }
+             $('#id').val(json[0].IdBooking);
+            $('input[name="DayBook"]').val(json[0].DayBook);
+            $('select[name="Course"]').val(json[0].Course);
+            $('select[name="Person"]').val(json[0].Person);
+            $('select[name="CaddyNum"]').val(json[0].CaddyNum);
+            $('select[name="CarNum"]').val(json[0].CarNum);
+            $('select[name="InsNum"]').val(json[0].InsNum);
+            $('input[name="fname"]').val(json[0].fname);
+            $('input[name="lname"]').val(json[0].lname);
+            $('input[name="Phone"]').val(json[0].Phone);
+            $('input[name="sumTotal"]').val(json[0].sumtotal);
+            
+//$('#divCaddy').attr('style','display:none');
+            $('#divFname').attr('style','display:none');
+            $('#divLname').attr('style','display:none');
+            $('#divPhone').attr('style','display:none');
+            $('#divHole').attr('style','display:none');
+            $('#divCaddy').attr('style','display:none');
+            $('#divCar').attr('style','display:none');
+            $('#divIns').attr('style','display:none');
+            if(json[0].Hole == 18){
+                $('#divCourse').attr('style','display:none');
+            }
         });
     }
     function getPriceTime() {
@@ -188,6 +224,7 @@ if (isset($_GET['id'])) {
             PriceItem = json;
         });
     }
+    
 
     $('#calPrice').click(function (event) {
         var datePlay = $('#datePlay').val();
@@ -198,10 +235,6 @@ if (isset($_GET['id'])) {
         var carNum = $('#carNum').val();
         var InsNum = $('#InsNum').val();
 
-        var PricePerson = 0;
-        var PriceIns = 0;
-        var PriceCar = 0;
-        var PriceCaddy = 0;
 
         ///หาวัน 0-6 0=อาทิตย์
         var day = new Date(datePlay);
@@ -216,7 +249,7 @@ if (isset($_GET['id'])) {
             alert('date error!!!');
         }
         console.log(bookDay);
-        if ($('#timeplay').val() == 1) {
+        if (timeplay == 1) {
             time = '06.00-11.30';
         } else if ($('#timeplay').val() == 2) {
             time = '11.30-15.00';
@@ -231,28 +264,55 @@ if (isset($_GET['id'])) {
         newData = getObjectByValue(newData, 'day_play', bookDay);
         console.log(newData);
 
-        var sum = parseFloat(newData[0].price) + parseFloat(person * PriceItem[0].priceMember) + parseFloat(caddyNum * PriceItem[0].priceCaddy) + parseFloat(carNum * PriceItem[0].priceCar) + parseFloat(InsNum * PriceItem[0].priceIns);
+        var sum = parseFloat(person*newData[0].price) + parseFloat(caddyNum * PriceItem[0].priceCaddy) + parseFloat(carNum * PriceItem[0].priceCar) + parseFloat(InsNum * PriceItem[0].priceIns);
         $('#sumTotal').val(sum);
     });
 
     function selectCaddy(loop) {
+        day = $('#datePlay').val();
         $.ajax({
             url: "<?php echo base_url() ?>Employee/list_Caddy",
-            type: "POST"
+            type: "POST",
+            data: {day: day}
         }).done(function (data) {
             var json = JSON.parse(data);
             console.log(json);
             var opts = "";
             for (j = 0; j < loop; j++) {
-                opts += '<select class="form-control" id="selectCaddy'+(j+1)+'" name="selectCaddy'+(j+1)+'">';
+                opts += '<select class="form-control caddy" onchange="removeOption(this)" id="selectCaddy' + (j + 1) + '" name="selectCaddy' + (j + 1) + '">';
                 opts += '<option value="">เลือกแคดดี้</option>';
                 for (var i = 0; i < json.length; i++) {
-                    opts += "<option value='" + json[i].IdEmp + "'>" + json[i].FName+" "+ json[i].LName + "</option>";
+                    opts += "<option value='" + json[i].IdEmp + "'>" + json[i].FName + " " + json[i].LName + "</option>";
                 }
                 opts += '</select>';
             }
-            $("#selectCaddy").html(opts+'<br>');
+            $("#selectCaddy").html(opts + '<br>');
 //            $("#selectCaddy").children().remove().end().append(opts);
+        });
+    }
+
+    function removeOption(emp) {
+        str = "<option value='" + emp.value + "' selected>" + $('#' + emp.id).find("option:selected").text() + "</option>";
+        $(".caddy option[value='" + emp.value + "']").remove();
+        $("#" + emp.id).children().end().append(str);
+    }
+    
+    function checkBook() {
+        datePlay = $('#datePlay').val();
+        timeplay = $('#timeplay').val();
+        $.ajax({
+            url: "<?php echo base_url() ?>Booking/check_Booking",
+            type: "POST",
+            data: {datePlay: datePlay,timeplay:timeplay}
+        }).done(function (data) {
+            var json = JSON.parse(data);
+            console.log(json);
+            if(json.length){
+                alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวันหรือเวลาใหม่");
+                $('#btnSubmit').attr('disabled',true);
+            }else{
+                $('#btnSubmit').attr('disabled',false);
+            }
         });
     }
 

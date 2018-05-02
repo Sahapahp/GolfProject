@@ -1,24 +1,4 @@
 
-<!--      <div class="text-center">
-        <h1>เข้าสู่ระบบ</h1>
-
-          <form action="Member_login_process" method="POST" class="clearfix">
-            <label>UserName :</label>
-            <input type="text" name="username" id="name" placeholder="username"/><br /><br />
-            <label>Password :</label>
-            <input type="password" name="password" id="password" placeholder="******"/><br/><br />
-            <input type="submit" class="btn btn-info  pull" value=" Login " name="submit"/><br />
-
-<?php if ($this->session->flashdata('error')): ?>
-                  <div>
-                    <div class="alert alert-success">
-              <strong>ล้มเหลว!</strong> ชื่อหรือผู้ใช้ไม่ถูกต้อง
-                    </div> 
-                  </div>
-<?php endif; ?>
-          </form>
-
-      </div>-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +64,7 @@
                         <br><br><br>
                         <?php if ($this->session->flashdata('error')): ?>
                             <div>
-                                <div class="alert alert-success">
+                                <div class="alert alert-warning">
                                     <strong>ล้มเหลว!</strong> ชื่อหรือผู้ใช้ไม่ถูกต้อง
                                 </div> 
                             </div>

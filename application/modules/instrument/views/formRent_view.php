@@ -68,7 +68,7 @@
             $('#instrument').val(json[0].InsNum);
             opts1 = "";
             for (j = 0; j < json[0].InsNum; j++) {
-                opts1 += '<select class="form-control" id="selectIns'+(j+1)+'" name="selectIns'+(j+1)+'">';
+                opts1 += '<select class="form-control ins" onchange="removeOptionIns(this)" id="selectIns'+(j+1)+'" name="selectIns'+(j+1)+'">';
                 opts1 += '<option value="">เลือกชุดไม้กอล์ฟ</option>';
                 for (var i = 0; i < instrument.length; i++) {
                     opts1 += "<option value='" + instrument[i].IdIns + "'>" + instrument[i].NameIns+"</option>";
@@ -80,7 +80,7 @@
             $('#car').val(json[0].CarNum);
             opts2 = "";
             for (j = 0; j < json[0].CarNum; j++) {
-                opts2 += '<select class="form-control" id="selectCar'+(j+1)+'" name="selectCar'+(j+1)+'">';
+                opts2 += '<select class="form-control car" onchange="removeOptionCar(this)" id="selectCar'+(j+1)+'" name="selectCar'+(j+1)+'">';
                 opts2 += '<option value="">เลือกรถ</option>';
                 for (var i = 0; i < car.length; i++) {
                     opts2 += "<option value='" + car[i].IdIns + "'>" + car[i].NameIns+"</option>";
@@ -109,5 +109,16 @@
             console.log(json);
             car = json;
         });
+    }
+    
+    function removeOptionIns(ins) {
+        str = "<option value='" + ins.value + "' selected>" + $('#' + ins.id).find("option:selected").text() + "</option>";
+        $(".ins option[value='" + ins.value + "']").remove();
+        $("#" + ins.id).children().end().append(str);
+    }
+    function removeOptionCar(car) {
+        str = "<option value='" + car.value + "' selected>" + $('#' + car.id).find("option:selected").text() + "</option>";
+        $(".caddy option[value='" + car.value + "']").remove();
+        $("#" + car.id).children().end().append(str);
     }
 </script>

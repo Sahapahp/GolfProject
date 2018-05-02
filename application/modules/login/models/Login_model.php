@@ -5,17 +5,17 @@
  * @copyright (c) 2017, Anupam Oza
  * @link http://localhost/login/
  */
-Class Login_Model extends CI_Model
-{
+Class Login_Model extends CI_Model {
 
-    function __construct()
-    {
+    private $db;
+
+    function __construct() {
         // Call the Model constructor
         parent::__construct();
+        $this->db = $this->load->database('default', TRUE);
     }
 
-    public function login($data)
-    {
+    public function login($data) {
         $username = $data['username'];
         $password = $data['password'];
         $this->db->select('*');
@@ -30,8 +30,7 @@ Class Login_Model extends CI_Model
         return false;
     }
 
-     public function loginEm($data)
-    {
+    public function loginEm($data) {
         $username = $data['username'];
         $password = $data['password'];
         $this->db->select('*');
@@ -46,8 +45,7 @@ Class Login_Model extends CI_Model
         return false;
     }
 
-    public function loginMem($data)
-    {
+    public function loginMem($data) {
         $username = $data['username'];
         $password = $data['password'];
         $this->db->select('*');
@@ -62,21 +60,36 @@ Class Login_Model extends CI_Model
         return false;
     }
 
-    public function loginAll($data)
-    {
+    public function insertHistory() {
+        $session_data = $this->session->logged_in;
+        if ($session_data->work == 3) {
+            $this->db->set('idMem', $session_data->IdMem);
+        } elseif ($session_data->work == 2) {
+            $this->db->set('idEmp', $session_data->IdEmp);
+        } else {
+            $this->db->set('idEmp', $session_data->IdAdmin);
+        }
+
+
+        $this->db->set('login_date', 'now()', false);
+        $this->db->insert('history');
+    }
+
+    public function loginAll($data) {
         $admindata = $this->login($data);
         $employeedata = $this->loginEm($data);
         $memberdata = $this->loginMem($data);
 
-        if ($this->login($data) !== false) 
+        if ($this->login($data) !== false)
             return $admindata;
 
-        if ($this->loginEm($data) !== false) 
+        if ($this->loginEm($data) !== false)
             return $employeedata;
 
-        if ($this->loginMem($data) !== false) 
+        if ($this->loginMem($data) !== false)
             return $memberdata;
 
         return false;
     }
+
 }

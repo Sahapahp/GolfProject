@@ -5,13 +5,17 @@ $user = "root"; //database username
 $pass = "1234"; //database password
 $db_name = "golfproject"; //database name
 
+if(isset($_POST['item_number'])){
+    $item_number = $_POST['item_number'];
+    $product_name = $_POST['product_name'];
+}
 // PayPal settings
-$paypal_email = 'pimai_1new@hotmail.com';
-$return_url = "http://localhost/GolfProject/Booking/paySuccessful";
+$paypal_email = 'Rachet_GolfClub@hotmail.com';
+$return_url = "http://localhost/GolfProject/Booking/paySuccessful?id=$item_number";
 $cancel_url = "http://localhost/GolfProject/Booking/payCancel";
 $notify_url = 'http://localhost/testPaypal/payments.php';
 
-$item_name = 'ค่าจองสนามกอล์ฟ';
+$item_name = $product_name;
 $item_amount = 1.00;
 
 // Include Functions

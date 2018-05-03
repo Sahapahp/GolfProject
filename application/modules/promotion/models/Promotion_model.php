@@ -31,6 +31,13 @@ class Promotion_model extends CI_Model {
         return $this->db->get()->result();
     }
     
+    public function getPromotionNow(){
+        $this->db->select('*');
+            $this->db->from('promotion');
+            $this->db->where('`StartDay` <= DATE(now()) AND `EndDay` >= DATE(now())');
+            return $this->db->get()->result();
+    }
+    
     public function addPromotion($data){
         
         return $this->db->insert('promotion',$data);

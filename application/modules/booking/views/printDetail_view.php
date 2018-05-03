@@ -58,7 +58,7 @@
                         <div style="width: 500px;">จำนวนแคดดี้ :  <span id="caddy">...</span><span class="pull-right" id="totalcaddy">...</span></div>
                         <div style="width: 500px;">จำนวนชุดไม้กอล์ฟ :  <span id="ins">...</span><span class="pull-right" id="totalins">...</span></div>
                         <div style="width: 500px;">จำนวนรถกอล์ฟ :  <span id="car">...</span><span class="pull-right" id="totalcar">...</span></div>
-                        <div style="width: 500px;">ค่าเช่าสนาม :  <span id="pricegolf" class="pull-right">...</span></div>
+                        <div style="width: 500px;">ส่วนลด :  <span id="discount" class="pull-right">...</span></div>
                         <b><div style="width: 500px;">รวมเป็นเงิน :  <span id="total" class="pull-right">...</span></div></b>
                     </div>
                     <hr>
@@ -146,8 +146,9 @@
                                 $('#ins').html(json[0].CarNum + " ชุด");
                                 $('#car').html(json[0].InsNum + " คัน");
 
-                                $('#totalperson').html((json[0].Person * PriceItem[0].priceMember) + " บาท");
+                                
                                 $('#totalcaddy').html((json[0].CaddyNum * PriceItem[0].priceCaddy) + " บาท");
+                                $('#discount').html('-'+json[0].discount + " บาท");
                                 $('#totalins').html((json[0].CarNum * PriceItem[0].priceCar) + " บาท");
                                 $('#totalcar').html((json[0].InsNum * PriceItem[0].priceIns) + " บาท");
                                 ///หาวัน 0-6 0=อาทิตย์
@@ -178,7 +179,7 @@
                                 newData = getObjectByValue(newData, 'day_play', bookDay);
                                 console.log(newData);
 
-                                $('#pricegolf').html(newData[0].price + " บาท");
+$('#totalperson').html((json[0].Person * newData[0].price) + " บาท");
                                 $('#total').html(json[0].sumtotal + " บาท");
                             });
                         }

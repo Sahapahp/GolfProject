@@ -99,8 +99,7 @@ class Booking_model extends CI_Model {
     public function check_Booking($datePlay,$timeplay) {
         $this->db->select('*');
         $this->db->from('booking');
-        if($datePlay){$this->db->where("DayBook",$datePlay);}
-        if($timeplay){$this->db->where("Timebook",$timeplay);}
+        $this->db->where(" (`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)");
         return $this->db->get()->result();
     }
     

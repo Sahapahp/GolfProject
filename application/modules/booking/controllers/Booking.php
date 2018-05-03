@@ -72,7 +72,29 @@ class Booking extends MX_Controller {
         }
         echo json_encode($caddy);
 
-        $data = array(
+        
+        /* $this->load->model('Employee_model'); */
+        if ($id == "") {
+            $data = array(
+            'DayBook' => $this->input->post('DayBook'),
+            'Hole' => $this->input->post('Hole'),
+            'Timebook' => $this->input->post('Timebook'),
+            'Course' => $this->input->post('Course'),
+            'Person' => $this->input->post('Person'),
+            'CaddyNum' => $this->input->post('CaddyNum'),
+            'CarNum' => $this->input->post('CarNum'),
+            'InsNum' => $this->input->post('InsNum'),
+            'fname' => $this->input->post('fname'),
+            'lname' => $this->input->post('lname'),
+            'Phone' => $this->input->post('Phone'),
+            'discount' => $this->input->post('discount'),
+            'sumtotal' => $this->input->post('sumTotal'),
+            'BookStatus' => $this->input->post('pay')
+        );
+            echo json_encode($data);
+            $result = $this->Booking_model->insertBooking($data, $caddy);
+        } else {
+            $data = array(
             'DayBook' => $this->input->post('DayBook'),
             'Hole' => $this->input->post('Hole'),
             'Timebook' => $this->input->post('Timebook'),
@@ -87,10 +109,6 @@ class Booking extends MX_Controller {
             'sumtotal' => $this->input->post('sumTotal'),
             'BookStatus' => $this->input->post('pay')
         );
-        /* $this->load->model('Employee_model'); */
-        if ($id == "") {
-            $result = $this->Booking_model->insertBooking($data, $caddy);
-        } else {
             $result = $this->Booking_model->updateBooking($id,$data);
         }
 

@@ -30,7 +30,7 @@
     </div>
     <div class="panel-body">
         <table class="table">
-            <tr><th>ราคาผู้เล่น/คน</th><th>ราคาแคดดี้/คน</th><th>ราคาไม้กอล์ฟ/ชุด</th><th>ราคารถกอล์ฟ/คัน</th></tr>
+            <tr><th>ราคาเหมาทั้งวัน</th><th>ราคาแคดดี้/คน</th><th>ราคาไม้กอล์ฟ/ชุด</th><th>ราคารถกอล์ฟ/คัน</th></tr>
             <tr><td> <input id="A1" type="number" class="form-control" style="width: 100px;"></td><td><input id="A2" type="number" class="form-control" style="width: 100px;"></td><td><input id="A3" type="number" class="form-control" style="width: 100px;"></td><td><input id="A4" type="number" class="form-control" style="width: 100px;"></td></tr>
         </table>
     </div>
@@ -50,7 +50,7 @@
         }).done(function (data) {
             var json = JSON.parse(data);
             console.log(json);
-            $('#A1').val(json[0].priceMember);
+            $('#A1').val(json[0].priceAllDay);
             $('#A2').val(json[0].priceCaddy);
             $('#A3').val(json[0].priceIns);
             $('#A4').val(json[0].priceCar);

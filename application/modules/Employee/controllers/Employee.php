@@ -249,7 +249,7 @@ class Employee extends MX_Controller {
     
     public function setPriceItem() {
         $data = array(
-            'priceMember' =>$this->input->post('A1'),
+            'priceAllDay' =>$this->input->post('A1'),
             'priceCaddy'=>$this->input->post('A2'),
             'priceIns'=>$this->input->post('A3'),
             'priceCar'=>$this->input->post('A4')

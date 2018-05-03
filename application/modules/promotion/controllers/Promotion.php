@@ -33,7 +33,10 @@ class Promotion extends MX_Controller {
         $result = $this->Promotion_model->getPromotion($id);
         echo json_encode($result);
     }
-
+    public function getPromotionNow() {
+        $result = $this->Promotion_model->getPromotionNow();
+        echo json_encode($result);
+    }
     public function openForm() {
         $this->theme_admin->render('formPromotion_view');
     }

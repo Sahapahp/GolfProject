@@ -47,7 +47,7 @@ $session_data = $this->session->logged_in;
                     <?php if ($session_data->work == 3) { ?>
                     <?php if ($session_data->MemPos == 1) { ?>
                         <input id="AllDay" type="radio" name="Hole" value="1">เหมาทั้งวัน 
-                    <?php }} ?>
+                    <?php } } ?>
                 </div>
 
                 <div class="form-group">

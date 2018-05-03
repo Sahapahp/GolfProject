@@ -45,9 +45,10 @@ $session_data = $this->session->logged_in;
                     <input id="hole9" type="radio" name="Hole"  value="9" checked>9 หลุม
                     <input id="hole18" type="radio" name="Hole" value="18">18 หลุม 
                     <?php if ($session_data->work == 3) { ?>
-                    <?php if ($session_data->MemPos == 1) { ?>
-                        <input id="AllDay" type="radio" name="Hole" value="1">เหมาทั้งวัน 
-                    <?php } } ?>
+                        <?php if ($session_data->MemPos == 1) { ?>
+                            <input id="AllDay" type="radio" name="Hole" value="1">เหมาทั้งวัน 
+                        <?php }
+                    } ?>
                 </div>
 
                 <div class="form-group">
@@ -134,7 +135,7 @@ $session_data = $this->session->logged_in;
                         <input id="pay1" type="radio" name="pay"  value="1" checked>ชำระแล้ว
                         <input id="pay0" type="radio" name="pay" value="0">ยังไม่ชำระ
                     </div>
-                <?php } ?>
+<?php } ?>
                 <button id="calPrice" type="button" class="btn btn-info pull" style="display: none">คำนวณราคา</button>
                 <button type="submit" id="btnSubmit" class=" btn btn-info pull">ตกลง</button>
 
@@ -255,7 +256,11 @@ $session_data = $this->session->logged_in;
                             var caddyNum = $('#caddyNum').val();
                             var carNum = $('#carNum').val();
                             var InsNum = $('#InsNum').val();
-                            var MemPos = '<?php echo $session_data->MemPos; ?>';
+                            var MemPos = '<?php if ($session_data->work == 3) {
+    echo $session_data->MemPos;
+} else {
+    echo "0";
+} ?>';
                             var discount = 0;
                             ///หาวัน 0-6 0=อาทิตย์
                             var day = new Date(datePlay);

@@ -128,6 +128,12 @@
                             <span>จัดการราคา</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="<?php echo base_url(); ?>Booking/usingHistory" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                            <span>ประวัติการเข้าใช้งาน</span>
+                        </a>
+                    </li>
                 </ul>
             <?php 
             }else{

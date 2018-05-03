@@ -25,8 +25,10 @@ Class Login extends MX_Controller {
         $session_data = $this->session->logged_in;
         if ($session_data) {
             if ($session_data->work == 3) {
+//                echo json_encode($session_data);
                 return redirect('/Member/callmemberuse', 'refresh');
             } elseif ($session_data->work == 2) {
+//                echo json_encode($session_data);
                 return redirect('/Member/callemtyEm', 'refresh');
             } else {
                 return redirect('/Employee/callEmty', 'refresh');

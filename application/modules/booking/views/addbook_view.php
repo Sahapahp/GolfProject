@@ -44,9 +44,10 @@ $session_data = $this->session->logged_in;
                     <label>เลือกจำนวนหลุม:</label>
                     <input id="hole9" type="radio" name="Hole"  value="9" checked>9 หลุม
                     <input id="hole18" type="radio" name="Hole" value="18">18 หลุม 
+                    <?php if ($session_data->work == 3) { ?>
                     <?php if ($session_data->MemPos == 1) { ?>
                         <input id="AllDay" type="radio" name="Hole" value="1">เหมาทั้งวัน 
-                    <?php } ?>
+                    <?php }} ?>
                 </div>
 
                 <div class="form-group">

@@ -178,7 +178,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url(); ?>Employee/callcaddyshow">
+                        <a href="<?php echo base_url(); ?>member/memShowEm">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>จัดการสมาชิก</span>
                         </a>

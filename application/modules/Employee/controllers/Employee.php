@@ -37,16 +37,15 @@ class Employee extends MX_Controller {
 
     public function showEmployee() {
         $data['employee'] = $this->Employee_model->DataEmployee();
-
         return $this->theme_admin->render('employeeShow_view', $data);
     }
 
     public function formUpdateEmp() {
-        $this->load->view('updateEmp_view');
+        $this->theme_admin->render('updateEmp_view');
     }
 
     public function formUpdateAdd() {
-        $this->load->view('updateAdd_view');
+        $this->theme_admin->render('updateAdd_view');
     }
 
     public function formAddEmp() {
@@ -77,11 +76,11 @@ class Employee extends MX_Controller {
 
         if ($this->Employee_model->insertEmp($data, $username)) {
             $this->Alert("เพิ่มสำเร็จ");
-            redirect('Employee/callcaddyshow', 'refresh');
+            redirect('Employee/callshow', 'refresh');
             /* $this->showEmployee(); */
         } else {
             $this->Alert("ไม่สามารถเพิ่มได้");
-            redirect('Employee/showEmployee', 'refresh');
+            redirect('Employee/callshow', 'refresh');
             /* $this->showEmployee(); */
         }
     }
@@ -145,7 +144,7 @@ class Employee extends MX_Controller {
             'IdEmp' => $id
         );
         return $this->Employee_model->updateEmp($data, $idData);
-        redirect('Employee/callcaddyshow', 'refresh');
+        redirect('Employee/callshow', 'refresh');
     }
 
     public function updateAdd() {
@@ -201,7 +200,7 @@ class Employee extends MX_Controller {
 
         if ($this->Employee_model->deleteEmp($id)) {
             return
-                    redirect('Employee/callcaddyshow', 'refresh');
+                    redirect('Employee/callshow', 'refresh');
         }
     }
 

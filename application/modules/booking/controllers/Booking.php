@@ -8,6 +8,8 @@ class Booking extends MX_Controller {
         parent::__construct();
         $this->load->model('Booking_model');
         $this->load->helper('url');
+        $this->load->library('email');
+
         $session_data = $this->session->logged_in;
         if ($session_data->work == null) {
             redirect(base_url(), 'refresh');
@@ -72,48 +74,48 @@ class Booking extends MX_Controller {
         }
         echo json_encode($caddy);
 
-        
+
         /* $this->load->model('Employee_model'); */
         if ($id == "") {
             $data = array(
-            'DayBook' => $this->input->post('DayBook'),
-            'Hole' => $this->input->post('Hole'),
-            'Timebook' => $this->input->post('Timebook'),
-            'Course' => $this->input->post('Course'),
-            'Person' => $this->input->post('Person'),
-            'CaddyNum' => $this->input->post('CaddyNum'),
-            'CarNum' => $this->input->post('CarNum'),
-            'InsNum' => $this->input->post('InsNum'),
-            'fname' => $this->input->post('fname'),
-            'lname' => $this->input->post('lname'),
-            'Phone' => $this->input->post('Phone'),
-            'discount' => $this->input->post('discount'),
-            'sumtotal' => $this->input->post('sumTotal'),
-            'BookStatus' => $this->input->post('pay')
-        );
+                'DayBook' => $this->input->post('DayBook'),
+                'Hole' => $this->input->post('Hole'),
+                'Timebook' => $this->input->post('Timebook'),
+                'Course' => $this->input->post('Course'),
+                'Person' => $this->input->post('Person'),
+                'CaddyNum' => $this->input->post('CaddyNum'),
+                'CarNum' => $this->input->post('CarNum'),
+                'InsNum' => $this->input->post('InsNum'),
+                'fname' => $this->input->post('fname'),
+                'lname' => $this->input->post('lname'),
+                'Phone' => $this->input->post('Phone'),
+                'discount' => $this->input->post('discount'),
+                'sumtotal' => $this->input->post('sumTotal'),
+                'BookStatus' => $this->input->post('pay')
+            );
             echo json_encode($data);
             $result = $this->Booking_model->insertBooking($data, $caddy);
         } else {
             $data = array(
-            'DayBook' => $this->input->post('DayBook'),
-            'Hole' => $this->input->post('Hole'),
-            'Timebook' => $this->input->post('Timebook'),
-            'Course' => $this->input->post('Course'),
-            'Person' => $this->input->post('Person'),
-            'CaddyNum' => $this->input->post('CaddyNum'),
-            'CarNum' => $this->input->post('CarNum'),
-            'InsNum' => $this->input->post('InsNum'),
-            'fname' => $this->input->post('fname'),
-            'lname' => $this->input->post('lname'),
-            'Phone' => $this->input->post('Phone'),
-            'sumtotal' => $this->input->post('sumTotal'),
-            'BookStatus' => $this->input->post('pay')
-        );
-            $result = $this->Booking_model->updateBooking($id,$data);
+                'DayBook' => $this->input->post('DayBook'),
+                'Hole' => $this->input->post('Hole'),
+                'Timebook' => $this->input->post('Timebook'),
+                'Course' => $this->input->post('Course'),
+                'Person' => $this->input->post('Person'),
+                'CaddyNum' => $this->input->post('CaddyNum'),
+                'CarNum' => $this->input->post('CarNum'),
+                'InsNum' => $this->input->post('InsNum'),
+                'fname' => $this->input->post('fname'),
+                'lname' => $this->input->post('lname'),
+                'Phone' => $this->input->post('Phone'),
+                'sumtotal' => $this->input->post('sumTotal'),
+                'BookStatus' => $this->input->post('pay')
+            );
+            $result = $this->Booking_model->updateBooking($id, $data);
         }
 
         echo json_encode($result);
-        redirect('Booking/bookSHowEm', 'refresh');
+//        redirect('Booking/bookSHowEm', 'refresh');
     }
 
     public function validateForm() {
@@ -197,19 +199,19 @@ class Booking extends MX_Controller {
     public function payCancel() {
         $this->load->view('payment-cancelled');
     }
-    
+
     public function check_Booking() {
         $datePlay = $this->input->post('datePlay');
         $timeplay = $this->input->post('timeplay');
-        $result = $this->Booking_model->check_Booking($datePlay,$timeplay);
+        $result = $this->Booking_model->check_Booking($datePlay, $timeplay);
         echo json_encode($result);
     }
-    
+
     public function usingHistory() {
         $result['booking'] = $this->Booking_model->historyBooking();
         $this->theme_admin->render('history_view', $result);
     }
-    
+
     public function setBookingStatus() {
         $id = $this->input->post('id');
         $result = $this->Booking_model->paySuccessful($id);

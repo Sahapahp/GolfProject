@@ -42,12 +42,12 @@
            <?php if ( isset($booking) && is_array($booking) ): ?>
 			<?php foreach ( $booking as $key ): ?>
 <tr>
-         <?php if ($key->Timebook==6) {
+         <?php if ($key->Timebook==1) {
                   $key->Timebook="06.00 – 11.30";
-                }else if ($key->Timebook==7) 
+                }else if ($key->Timebook==2) 
                 {
                  $key->Timebook="11.30 – 15.00";
-               }else if ($key->Timebook==8) {
+               }else if ($key->Timebook==3) {
                  $key->Timebook="15.00 – 19.00";
                }else  {
                  $key->Timebook="17.00 – 19.00";

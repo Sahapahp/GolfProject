@@ -13,7 +13,7 @@ if(isset($_POST['item_number'])){
 $paypal_email = 'Rachet_GolfClub@hotmail.com';
 $return_url = "http://localhost/GolfProject/Booking/paySuccessful?id=$item_number";
 $cancel_url = "http://localhost/GolfProject/Booking/payCancel";
-$notify_url = 'http://localhost/testPaypal/payments.php';
+$notify_url = 'http://localhost/GolfProject/assets/payments/payments.php';
 
 $item_name = $product_name;
 $item_amount = 1.00;

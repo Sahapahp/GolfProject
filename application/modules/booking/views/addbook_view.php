@@ -53,7 +53,7 @@ $session_data = $this->session->logged_in;
 
                 <div class="form-group">
                     <label >เวลา:</label>
-                    <select class="form-control" onchange="checkBook()" id="timeplay" name="Timebook" class="selectpicker  required">
+                    <select class="form-control" onchange="checkBook()" id="timeplay" name="Timebook" class="selectpicker" required>
                         <option value="4" selected >17.00-19.00</option>
                     </select>
                 </div>
@@ -71,7 +71,7 @@ $session_data = $this->session->logged_in;
 
                 <div class="form-group">
                     <label >จำนวนผู้เล่น :</label>
-                    <select class="form-control" onchange="$('#calPrice').click()" id="person" name="Person">
+                    <select class="form-control" onchange="$('#calPrice').click()" id="person" name="Person" required>
                         <option value="">เลือกจำนวน ผู้เล่น</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -83,24 +83,19 @@ $session_data = $this->session->logged_in;
 
                 <div class="form-group" id='divCaddy'>
                     <label>จำนวนแคดดี้:</label>
-                    <select class="form-control" onchange="$('#calPrice').click()" id="caddyNum" name="CaddyNum">
+                    <select class="form-control" onchange="$('#calPrice').click()" id="caddyNum" name="CaddyNum" required>
                         <option value="">เลือกจำนวน แคดดี้</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
                     </select> 
                 </div>
                 <div id="selectCaddy"></div>
                 <div class="form-group" id="divCar">
                     <label>รถกอล์ฟ :</label>
-                    <select class="form-control" onchange="$('#calPrice').click()" id="carNum" name="CarNum">
+                    <select class="form-control" onchange="$('#calPrice').click()" id="carNum" name="CarNum" required>
                         <option value="">เลือกจำนวน รถกอล์ฟ</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -150,8 +145,10 @@ $session_data = $this->session->logged_in;
 <script type="text/javascript">
 
                         $('#hole9').click(function (event) {
+                            $('#divCourse').attr('style','');
                             str = '<option value="4">17.00-19.00</option>';
                             $("#timeplay").children().remove().end().append(str);
+                            checkBook();
                         });
                         $('#hole18').click(function (event) {
                             str = '<option value="1">06.00-11.30</option>' +
@@ -159,6 +156,12 @@ $session_data = $this->session->logged_in;
                                     '<option value="3">15.00-19.00</option>' +
                                     '<option value="4">17.00-19.00</option>';
                             $("#timeplay").children().remove().end().append(str);
+                            $('#course').val('');
+                            $('#divCourse').attr('style','display:none');
+                            checkBook();
+                        });
+                        $('#course').change(function (event) {
+                            checkBook();
                         });
                         $('#AllDay').click(function (event) {
                             str = '<option value="5" selected>All day</option>';
@@ -338,6 +341,11 @@ $session_data = $this->session->logged_in;
                         function checkBook() {
                             datePlay = $('#datePlay').val();
                             timeplay = $('#timeplay').val();
+                            if($('input[name=Hole]:checked').val() == 9){
+                                leng = 1;
+                            }else{
+                                leng = 18;
+                            }
                             $.ajax({
                                 url: "<?php echo base_url() ?>Booking/check_Booking",
                                 type: "POST",
@@ -345,8 +353,8 @@ $session_data = $this->session->logged_in;
                             }).done(function (data) {
                                 var json = JSON.parse(data);
                                 console.log(json);
-                                if (json.length) {
-                                    alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวันหรือเวลาใหม่");
+                                if (json.length >= leng) {
+                                    alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
                                     $('#btnSubmit').attr('disabled', true);
                                 } else {
                                     $('#btnSubmit').attr('disabled', false);

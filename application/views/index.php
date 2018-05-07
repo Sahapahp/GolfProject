@@ -5,7 +5,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<!--  <style>
+      body{background-image: url(<?php echo base_url();?>assets/images/bg.jpg);
+      background-size: cover; 
+      background-repeat: no-repeat;}
+  </style>-->
 </head>
 
 <?php if($this->session->flashdata('done')): ?>
@@ -33,7 +37,7 @@
 </ul>
 </div>
 </div>
-<div class="container">
+    <div class="container">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
 
@@ -64,7 +68,7 @@
   </div>
 </div>
 <!-- content-wrap -->
-<div id="content-wrap">
+<div id="content-wrap" style="">
 <div id="content">
 <div id="sidebar">
 <div class="sidebox">
@@ -128,9 +132,9 @@ date</th>
 </table>
 
 <!-- footer  -->
-<div id="footer">
+<div id="footer" style="background-color:#FFF;">
 <div id="footer-content">
-<div class="col float-left">
+    <div class="col float-left">
 <h1>ติดต่อเรา</h1>
 <ul>
 <li><a href="http://www.dreamhost.com/r.cgi?287326"><strong>FaceBook</strong>
@@ -157,5 +161,8 @@ date</th>
 </div>
 </div>
 <div style="font-size: 0.8em; text-align: center; margin-top: 1em; margin-bottom: 1em;">
+</div>
+</div>
+
 </div>
 </body></html>

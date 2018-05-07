@@ -100,6 +100,8 @@ class Booking_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('booking');
         $this->db->where(" (`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)");
+        
+//        $this->db->where('`DayBook` > date(now())');
         return $this->db->get()->result();
     }
     

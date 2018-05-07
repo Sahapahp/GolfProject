@@ -115,7 +115,7 @@ class Booking extends MX_Controller {
         }
 
         echo json_encode($result);
-//        redirect('Booking/bookSHowEm', 'refresh');
+        redirect('Booking/bookSHowEm', 'refresh');
     }
 
     public function validateForm() {

@@ -16,6 +16,7 @@
                     <th class="text-center">วัน</th>
                     <th class="text-center">เวลา</th>
                     <th class="text-center">การเข้าใช้งาน</th>
+                    <th class="text-center">สถานะ</th>
                 </tr>
             </thead>
             <tfoot>
@@ -26,6 +27,7 @@
                     <th class="text-center">วัน</th>
                     <th class="text-center">เวลา</th>
                     <th class="text-center">การเข้าใช้งาน</th>
+                    <th class="text-center">สถานะ</th> 
                 </tr>
             </tfoot>
             <tbody>
@@ -51,6 +53,11 @@
                         } else {
                             $key->using_status = "ไม่เข้าใช้งาน";
                         }
+                        if ($key->delete_status == 0) {
+                                $delete_status = '<span style="color:green">ใช้งาน</span>';
+                            } else {
+                                $delete_status = '<span style="color:red">ยกเลิก</span>';
+                            }
                         ?>
 
                         <?php
@@ -61,8 +68,7 @@
                     <?php echo "<td class='text-center'>" . $key->DayBook .
                     "</td> <td class='text-center'>" . $key->Timebook . "</td>";
                     ?>
-    <?php echo "<td class='text-center'>" . $key->using_status .
-    "</td>";
+    <?php echo "<td class='text-center'>" . $key->using_status ."</td>"."</td> <td class='text-center'>" . $delete_status . "</td>";
     ?>
 
                     

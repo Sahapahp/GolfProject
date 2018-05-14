@@ -15,9 +15,7 @@ $session_data = $this->session->logged_in;
         </strong>
     </div>
     <div class="panel-body">
-
-        <div class="post"> <a name="TemplateInfo"></a>
-
+        <div class="post"> 
             <form >
                 <input class="form-control" id="id" type="text" name="id" style="display: none">
                 <div class="form-group" id="divFname">
@@ -341,15 +339,19 @@ $session_data = $this->session->logged_in;
                         function checkBook() {
                             datePlay = $('#datePlay').val();
                             timeplay = $('#timeplay').val();
+                            hole = $('input[name=Hole]:checked').val();
+                            course = $('#course').val();
+                            
                             if($('input[name=Hole]:checked').val() == 9){
                                 leng = 1;
                             }else{
                                 leng = 18;
                             }
+                            
                             $.ajax({
                                 url: "<?php echo base_url() ?>Booking/check_Booking",
                                 type: "POST",
-                                data: {datePlay: datePlay, timeplay: timeplay}
+                                data: {datePlay: datePlay, timeplay: timeplay,hole:hole,course:course}
                             }).done(function (data) {
                                 var json = JSON.parse(data);
                                 console.log(json);

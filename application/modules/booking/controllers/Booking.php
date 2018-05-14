@@ -203,7 +203,9 @@ class Booking extends MX_Controller {
     public function check_Booking() {
         $datePlay = $this->input->post('datePlay');
         $timeplay = $this->input->post('timeplay');
-        $result = $this->Booking_model->check_Booking($datePlay, $timeplay);
+        $hole = $this->input->post('hole');
+        $course = $this->input->post('course');
+        $result = $this->Booking_model->check_Booking($datePlay, $timeplay,$hole,$course);
         echo json_encode($result);
     }
 

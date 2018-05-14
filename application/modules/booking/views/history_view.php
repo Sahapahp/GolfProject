@@ -81,7 +81,9 @@
 </div><!-- /.content -->
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#example').DataTable();
+        $('#example').DataTable({
+        "order": [[ 0, "desc" ]]
+    } );
     });
 </script>
 

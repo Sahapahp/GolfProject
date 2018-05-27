@@ -125,5 +125,13 @@ class Booking_model extends CI_Model {
         $this->db->where('IdBooking', $id);
         return $this->db->update('booking');
     }
+    
+    public function getCaddyBooking($id) {
+        $this->db->select('*');
+        $this->db->from('workcaddy');
+        $this->db->join('employee',"workcaddy.idCaddy = employee.IdEmp");
+        $this->db->where("idBooking = $id");
+        return $this->db->get()->result();
+    }
 
 }

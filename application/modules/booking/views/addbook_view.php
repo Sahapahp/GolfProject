@@ -1,5 +1,6 @@
 
 <?php
+date_default_timezone_set("Asia/Bangkok");
 $id = "";
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -35,7 +36,7 @@ $session_data = $this->session->logged_in;
 
                 <div class="form-group">
                     <label>วัน :</label>
-                    <input class="form-control" onchange="checkBook()" id="datePlay" type="date" name="DayBook" required>
+                    <input class="form-control" onchange="checkBook()" id="datePlay" type="date" name="DayBook" min="<?php echo date("Y-m-d");?>" required>
                 </div>
 
                 <div class="form-group" id="divHole">
@@ -142,9 +143,19 @@ $session_data = $this->session->logged_in;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript">
 
+
                         $('#hole9').click(function (event) {
                             $('#divCourse').attr('style','');
-                            str = '<option value="4">17.00-19.00</option>';
+                            $('#course').attr('required',true);
+                            var datePlay = $('#datePlay').val();
+                            var timeH = '<?php echo date('H')?>';
+                            if(timeH <= 15){
+                                   str = '<option value="4">17.00-19.00</option>';
+                            }else{
+                                  alert('หมดเวลาการจองสนาม กรุณาเลือกวันถัดไป');
+                                  str = '<option value="">หมดเวลาการจองสนาม</option>';
+                              }
+                            $("#timeplay").children().remove().end().append(str);
                             $("#timeplay").children().remove().end().append(str);
                             checkBook();
                         });
@@ -156,6 +167,32 @@ $session_data = $this->session->logged_in;
                             $("#timeplay").children().remove().end().append(str);
                             $('#course').val('');
                             $('#divCourse').attr('style','display:none');
+                            $('#course').attr('required',false);
+                            
+                            var datePlay = $('#datePlay').val();
+                            var timeH = '<?php echo date('H')?>';
+                            if(datePlay == "<?php echo date("Y-m-d");?>"){
+                              if(timeH <= 4){
+                                   str = '<option value="1">06.00-11.30</option>' +
+                                    '<option value="2">11.30-15.00</option>' +
+                                    '<option value="3">15.00-19.00</option>' +
+                                    '<option value="4">17.00-19.00</option>';
+                              }else if(timeH <= 9){
+                                   str = '<option value="2">11.30-15.00</option>' +
+                                    '<option value="3">15.00-19.00</option>' +
+                                    '<option value="4">17.00-19.00</option>';
+                              }else if(timeH <= 13){
+                                   str = '<option value="3">15.00-19.00</option>' +
+                                    '<option value="4">17.00-19.00</option>';
+                              }else if(timeH <= 15){
+                                   str = '<option value="4">17.00-19.00</option>';
+                              }else{
+                                  alert('หมดเวลาการจองสนาม กรุณาเลือกวันถัดไป');
+                                  str = '<option value="">หมดเวลาการจองสนาม</option>';
+                              }
+                            $("#timeplay").children().remove().end().append(str);  
+                            }
+                            
                             checkBook();
                         });
                         $('#course').change(function (event) {
@@ -168,6 +205,10 @@ $session_data = $this->session->logged_in;
                         });
                         $('#caddyNum').change(function (event) {
                             selectCaddy($('#caddyNum').val());
+                        });
+                        $('#datePlay').change(function (event) {
+                        $('#hole9').click();
+                            
                         });
                         getPriceTime();
                         getPriceItem();

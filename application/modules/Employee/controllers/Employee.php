@@ -54,7 +54,7 @@ class Employee extends MX_Controller {
     }
 
     public function addEmForAdd() {
-        return $this->load->view('adEmAd_view');
+        return $this->theme_admin->render('adEmAD_view');
     }
 
     public function validate() {
@@ -273,4 +273,9 @@ class Employee extends MX_Controller {
         $this->load->view('printCaddy_view',$result);
     }
 
+    public function getUserEmp(){
+        $username = $this->input->post('username');
+        $result = $this->Employee_model->getUserEmp($username);
+        echo json_encode($result);
+    }
 }

@@ -61,6 +61,7 @@
                         <div style="width: 500px;">ส่วนลด :  <span id="discount" class="pull-right">...</span></div>
                         <b><div style="width: 500px;">รวมเป็นเงิน :  <span id="total" class="pull-right">...</span></div></b>
                     </div>
+                    <div id="listCaddy"> </div>
                     <hr>
                     <p>Rachet Golf Club : 09-10601197</p>
                 </div>
@@ -113,6 +114,7 @@
                         getPriceTime();
                         setTimeout(get_Booking, 1500);
                         function get_Booking() {
+                            getCaddyBooking();
                             id = '<?php echo $id; ?>';
                             $.ajax({
                                 url: "<?php echo base_url() ?>Booking/get_Booking",
@@ -179,10 +181,27 @@
                                 newData = getObjectByValue(newData, 'day_play', bookDay);
                                 console.log(newData);
 
-$('#totalperson').html((json[0].Person * newData[0].price) + " บาท");
+                                $('#totalperson').html((json[0].Person * newData[0].price) + " บาท");
                                 $('#total').html(json[0].sumtotal + " บาท");
                             });
                         }
+                        function getCaddyBooking() {
+                            id = '<?php echo $id; ?>';
+                            $.ajax({
+                                url: "<?php echo base_url() ?>Booking/getCaddyBooking",
+                                type: "POST",
+                                data:{id:id}
+                            }).done(function (data) {
+                                var json = JSON.parse(data);
+                                console.log(json);
+                                var str = "<br><b>รายชื่อแคดดี้</b><br>";
+                                for(i=0;i<json.length;i++){
+                                    str += (i+1)+" "+json[i].FName+" "+json[i].LName+"<br>";
+                                }
+                                $('#listCaddy').html(str);
+                            });
+                        }
+                        
                         function printDetail() {
                             window.print();
                         }

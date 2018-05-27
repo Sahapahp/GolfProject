@@ -107,5 +107,12 @@ class Employee_model extends CI_Model {
         $query = $this->db->query("SELECT b.`IdBooking`, b.`Hole`, b.`Course`, b.`Person`, b.`DayBook`, b.`Timebook`, b.`CaddyNum`, b.`InsNum`, b.`CarNum`, b.`sumtotal`, b.`BookStatus`, b.`fname`, b.`lname`, b.`Phone`, b.`IdMem`, b.`IdEmp`, b.`IdPro` FROM `workcaddy` w JOIN `booking` b ON b.IdBooking = w.idBooking JOIN employee e on w.idCaddy = e.IdEmp where e.IdEmp = ".$session_data->IdEmp." AND b.`DayBook` >= DATE(now()) ORDER by b.`DayBook`");
         return $query->result();
     }
+    
+    public function getUserEmp($username) {
+        $this->db->select('*');
+        $this->db->from('employee');
+        $this->db->where('UserName', $username);
+        return $this->db->get()->result();
+    }
 
 }

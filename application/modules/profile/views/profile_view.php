@@ -46,7 +46,11 @@
                 } else if (dataJson[0].Position == 1) {
                     Position = 'แคดดี้';
                 }else{
-                    Position = 'ผู้ใช้ทั่วไป';
+                    if(dataJson[0].MemPos == 1){
+                       Position = 'ผู้ใช้พรีเมี่ยม'; 
+                    }else{
+                        Position = 'ผู้ใช้ทั่วไป';
+                    }
                 }
 
                 if (dataJson[0].OnlineStatus == 0) {

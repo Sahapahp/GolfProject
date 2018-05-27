@@ -220,4 +220,10 @@ class Booking extends MX_Controller {
         echo print_r($result);
 //        return redirect('Booking/bookShowEm', 'refresh');
     }
+    
+     public function getCaddyBooking() {
+        $id = $this->input->post('id');
+        $result = $this->Booking_model->getCaddyBooking($id);
+        echo json_encode($result);
+    }
 }

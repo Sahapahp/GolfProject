@@ -10,6 +10,10 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
         <!--<link rel="stylesheet" href="<?php echo base_url(); ?>assets/libs/DataTables-1.10.16/datatables.min.js" />-->
+        
+        <script src="<?php echo base_url(); ?>assets/plugins/timepicker/SalsaCalendar.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/timepicker/SalsaCalendar.min.css">
+        
         <script language="JavaScript">
             function chkNumber(ele)
             {

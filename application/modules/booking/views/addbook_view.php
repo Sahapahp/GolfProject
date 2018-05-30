@@ -149,12 +149,16 @@ $session_data = $this->session->logged_in;
                             $('#course').attr('required',true);
                             var datePlay = $('#datePlay').val();
                             var timeH = '<?php echo date('H')?>';
+                             if(datePlay == "<?php echo date("Y-m-d");?>"){
                             if(timeH <= 15){
                                    str = '<option value="4">17.00-19.00</option>';
                             }else{
                                   alert('หมดเวลาการจองสนาม กรุณาเลือกวันถัดไป');
                                   str = '<option value="">หมดเวลาการจองสนาม</option>';
                               }
+                          }else{
+                              str = '<option value="4">17.00-19.00</option>';
+                          }
                             $("#timeplay").children().remove().end().append(str);
                             $("#timeplay").children().remove().end().append(str);
                             checkBook();
@@ -191,6 +195,11 @@ $session_data = $this->session->logged_in;
                                   str = '<option value="">หมดเวลาการจองสนาม</option>';
                               }
                             $("#timeplay").children().remove().end().append(str);  
+                            }else{
+                                str = '<option value="1">06.00-11.30</option>' +
+                                    '<option value="2">11.30-15.00</option>' +
+                                    '<option value="3">15.00-19.00</option>' +
+                                    '<option value="4">17.00-19.00</option>';
                             }
                             
                             checkBook();

@@ -74,7 +74,7 @@ class Booking_model extends CI_Model {
         if ($session_data->work == 3) {
             $this->db->where('IdMem', $session_data->IdMem);
         }
-        $this->db->where('`DayBook`<DATE(now()) or delete_status = 1');
+        $this->db->where('(`DayBook`<DATE(now()) or delete_status = 1)');
         $this->db->order_by('IdBooking', 'DESC');
         return $this->db->get()->result();
     }
@@ -113,8 +113,10 @@ class Booking_model extends CI_Model {
         $this->db->from('booking');
         if ($hole == 9) {
             $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay' and `Course` = '$course') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
-        } else {
+        } else if ($hole == 18){
             $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
+        }else{
+            $this->db->where("`DayBook` = '$datePlay' ");
         }
 //        $this->db->where('`DayBook` > date(now())');
         return $this->db->get()->result();

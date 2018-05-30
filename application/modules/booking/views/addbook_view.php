@@ -36,7 +36,7 @@ $session_data = $this->session->logged_in;
 
                 <div class="form-group">
                     <label>วัน :</label>
-                    <input class="form-control" onchange="checkBook()" id="datePlay" type="date" name="DayBook" min="<?php echo date("Y-m-d");?>" required>
+                    <input class="form-control" onchange="checkBook()" id="datePlay" type="date" name="DayBook" min="<?php echo date("Y-m-d"); ?>" required>
                 </div>
 
                 <div class="form-group" id="divHole">
@@ -46,8 +46,10 @@ $session_data = $this->session->logged_in;
                     <?php if ($session_data->work == 3) { ?>
                         <?php if ($session_data->MemPos == 1) { ?>
                             <input id="AllDay" type="radio" name="Hole" value="1">เหมาทั้งวัน 
-                        <?php }
-                    } ?>
+                        <?php
+                        }
+                    }
+                    ?>
                 </div>
 
                 <div class="form-group">
@@ -145,20 +147,20 @@ $session_data = $this->session->logged_in;
 
 
                         $('#hole9').click(function (event) {
-                            $('#divCourse').attr('style','');
-                            $('#course').attr('required',true);
+                            $('#divCourse').attr('style', '');
+                            $('#course').attr('required', true);
                             var datePlay = $('#datePlay').val();
-                            var timeH = '<?php echo date('H')?>';
-                             if(datePlay == "<?php echo date("Y-m-d");?>"){
-                            if(timeH <= 15){
-                                   str = '<option value="4">17.00-19.00</option>';
-                            }else{
-                                  alert('หมดเวลาการจองสนาม กรุณาเลือกวันถัดไป');
-                                  str = '<option value="">หมดเวลาการจองสนาม</option>';
-                              }
-                          }else{
-                              str = '<option value="4">17.00-19.00</option>';
-                          }
+                            var timeH = '<?php echo date('H') ?>';
+                            if (datePlay == "<?php echo date("Y-m-d"); ?>") {
+                                if (timeH <= 15) {
+                                    str = '<option value="4">17.00-19.00</option>';
+                                } else {
+                                    alert('หมดเวลาการจองสนาม กรุณาเลือกวันถัดไป');
+                                    str = '<option value="">หมดเวลาการจองสนาม</option>';
+                                }
+                            } else {
+                                str = '<option value="4">17.00-19.00</option>';
+                            }
                             $("#timeplay").children().remove().end().append(str);
                             $("#timeplay").children().remove().end().append(str);
                             checkBook();
@@ -170,54 +172,58 @@ $session_data = $this->session->logged_in;
                                     '<option value="4">17.00-19.00</option>';
                             $("#timeplay").children().remove().end().append(str);
                             $('#course').val('');
-                            $('#divCourse').attr('style','display:none');
-                            $('#course').attr('required',false);
-                            
+                            $('#divCourse').attr('style', 'display:none');
+                            $('#course').attr('required', false);
+
                             var datePlay = $('#datePlay').val();
-                            var timeH = '<?php echo date('H')?>';
-                            if(datePlay == "<?php echo date("Y-m-d");?>"){
-                              if(timeH <= 4){
-                                   str = '<option value="1">06.00-11.30</option>' +
-                                    '<option value="2">11.30-15.00</option>' +
-                                    '<option value="3">15.00-19.00</option>' +
-                                    '<option value="4">17.00-19.00</option>';
-                              }else if(timeH <= 9){
-                                   str = '<option value="2">11.30-15.00</option>' +
-                                    '<option value="3">15.00-19.00</option>' +
-                                    '<option value="4">17.00-19.00</option>';
-                              }else if(timeH <= 13){
-                                   str = '<option value="3">15.00-19.00</option>' +
-                                    '<option value="4">17.00-19.00</option>';
-                              }else if(timeH <= 15){
-                                   str = '<option value="4">17.00-19.00</option>';
-                              }else{
-                                  alert('หมดเวลาการจองสนาม กรุณาเลือกวันถัดไป');
-                                  str = '<option value="">หมดเวลาการจองสนาม</option>';
-                              }
-                            $("#timeplay").children().remove().end().append(str);  
-                            }else{
+                            var timeH = '<?php echo date('H') ?>';
+                            if (datePlay == "<?php echo date("Y-m-d"); ?>") {
+                                if (timeH <= 4) {
+                                    str = '<option value="1">06.00-11.30</option>' +
+                                            '<option value="2">11.30-15.00</option>' +
+                                            '<option value="3">15.00-19.00</option>' +
+                                            '<option value="4">17.00-19.00</option>';
+                                } else if (timeH <= 9) {
+                                    str = '<option value="2">11.30-15.00</option>' +
+                                            '<option value="3">15.00-19.00</option>' +
+                                            '<option value="4">17.00-19.00</option>';
+                                } else if (timeH <= 13) {
+                                    str = '<option value="3">15.00-19.00</option>' +
+                                            '<option value="4">17.00-19.00</option>';
+                                } else if (timeH <= 15) {
+                                    str = '<option value="4">17.00-19.00</option>';
+                                } else {
+                                    alert('หมดเวลาการจองสนาม กรุณาเลือกวันถัดไป');
+                                    str = '<option value="">หมดเวลาการจองสนาม</option>';
+                                }
+                                $("#timeplay").children().remove().end().append(str);
+                            } else {
                                 str = '<option value="1">06.00-11.30</option>' +
-                                    '<option value="2">11.30-15.00</option>' +
-                                    '<option value="3">15.00-19.00</option>' +
-                                    '<option value="4">17.00-19.00</option>';
+                                        '<option value="2">11.30-15.00</option>' +
+                                        '<option value="3">15.00-19.00</option>' +
+                                        '<option value="4">17.00-19.00</option>';
                             }
-                            
+
                             checkBook();
                         });
+
                         $('#course').change(function (event) {
                             checkBook();
                         });
                         $('#AllDay').click(function (event) {
                             str = '<option value="5" selected>All day</option>';
                             $("#timeplay").children().remove().end().append(str);
+                            $('#course').val('');
+                            $('#divCourse').attr('style', 'display:none');
+                            $('#course').attr('required', false);
                             checkBook();
                         });
                         $('#caddyNum').change(function (event) {
                             selectCaddy($('#caddyNum').val());
                         });
                         $('#datePlay').change(function (event) {
-                        $('#hole9').click();
-                            
+                            $('#hole9').click();
+
                         });
                         getPriceTime();
                         getPriceItem();
@@ -307,11 +313,13 @@ $session_data = $this->session->logged_in;
                             var caddyNum = $('#caddyNum').val();
                             var carNum = $('#carNum').val();
                             var InsNum = $('#InsNum').val();
-                            var MemPos = '<?php if ($session_data->work == 3) {
+                            var MemPos = '<?php
+if ($session_data->work == 3) {
     echo $session_data->MemPos;
 } else {
     echo "0";
-} ?>';
+}
+?>';
                             var discount = 0;
                             ///หาวัน 0-6 0=อาทิตย์
                             var day = new Date(datePlay);
@@ -391,17 +399,19 @@ $session_data = $this->session->logged_in;
                             timeplay = $('#timeplay').val();
                             hole = $('input[name=Hole]:checked').val();
                             course = $('#course').val();
-                            
-                            if($('input[name=Hole]:checked').val() == 9){
+
+                            if ($('input[name=Hole]:checked').val() == 9) {
                                 leng = 1;
-                            }else{
+                            } else if ($('input[name=Hole]:checked').val() == 18) {
                                 leng = 18;
+                            } else {
+                                leng = 1;
                             }
-                            
+
                             $.ajax({
                                 url: "<?php echo base_url() ?>Booking/check_Booking",
                                 type: "POST",
-                                data: {datePlay: datePlay, timeplay: timeplay,hole:hole,course:course}
+                                data: {datePlay: datePlay, timeplay: timeplay, hole: hole, course: course}
                             }).done(function (data) {
                                 var json = JSON.parse(data);
                                 console.log(json);
@@ -409,7 +419,19 @@ $session_data = $this->session->logged_in;
                                     alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
                                     $('#btnSubmit').attr('disabled', true);
                                 } else {
-                                    $('#btnSubmit').attr('disabled', false);
+                                    if (leng == 18) {
+                                        for (i = 0; i < json.length; i++) {
+                                            if (json[i].Hole = 1) {
+                                                alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
+                                                $('#btnSubmit').attr('disabled', true);
+                                            } else {
+                                                $('#btnSubmit').attr('disabled', false);
+                                            }
+                                        }
+                                    } else {
+                                        $('#btnSubmit').attr('disabled', false);
+                                    }
+
                                 }
                             });
                         }

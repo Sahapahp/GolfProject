@@ -8,12 +8,13 @@ $db_name = "golfproject"; //database name
 if(isset($_POST['item_number'])){
     $item_number = $_POST['item_number'];
     $product_name = $_POST['product_name'];
+    $stausPay = $_POST['statusPay'];
 }
 // PayPal settings
 $paypal_email = 'Rachet_GolfClub@hotmail.com';
-$return_url = "http://localhost/GolfProject/Booking/paySuccessful?id=$item_number";
-$cancel_url = "http://localhost/GolfProject/Booking/payCancel";
-$notify_url = 'http://localhost/GolfProject/assets/payments/payments.php';
+$return_url = "http://localhost/Booking/paySuccessful?id=$item_number&statusPay=$stausPay";
+$cancel_url = "http://localhost/Booking/payCancel";
+$notify_url = 'http://localhost/assets/payments/payments.php';
 
 $item_name = $product_name;
 $item_amount = 1.00;

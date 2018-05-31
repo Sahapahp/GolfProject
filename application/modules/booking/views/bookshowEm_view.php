@@ -70,6 +70,7 @@
                                 $key->BookStatus =  '<span style="color:green">ชำระแล้ว</span>';
                             } else {
                                 $pay = 0;
+                                
                                 $key->BookStatus =  '<span style="color:red">ยังไม่ชำระ</span>';
                             }
                             ?>

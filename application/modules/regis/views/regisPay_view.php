@@ -51,8 +51,7 @@
             <div class="post" style="text-align: left;"> 
                 <h1 class="text-center">ชำระเงินค่าสมัคร สำหรับสมาชิกพรีเมียม</h1>
                 
-                <p class="text-center">
-                    ชำระเงินผ่านระบบ Paypal คลิก<br>
+                <div class="text-center" style="padding:auto; margin: auto;">ชำระเงินผ่านระบบ Paypal คลิก
                     <form class="paypal" action="" method="post" id="paypal_form" target="_blank">
                         <input type="hidden" name="cmd" value="_xclick" />
                         <input type="hidden" name="no_note" value="1" />
@@ -65,9 +64,9 @@
                         <input type="hidden" name="item_number" id="item_number" value="<?php echo $id;?>" />
                         <input type="hidden" name="product_name" id="product_name" value="ชำระเงินค่าสมัคร สำหรับสมาชิกพรีเมียม" />
                         <input type="hidden" name="statusPay" value="register" />
-                        <button type="submit" id="btnSubmit" class="btn btn-success pull-left" name="submit"><span class="glyphicon glyphicon-bitcoin"></span> Submit Payment</button>
+                        <button type="submit" id="btnSubmit" class="btn btn-success pull-left" name="submit" style="margin:10px 0px 0px 475px;"><span class="glyphicon glyphicon-bitcoin"></span> Submit Payment</button>
                     </form>
-                </p>
+            </div>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
 

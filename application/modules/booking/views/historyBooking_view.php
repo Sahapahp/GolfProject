@@ -1,4 +1,6 @@
-
+<?php
+    date_default_timezone_set("Asia/Bangkok");
+?>
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>
@@ -45,16 +47,17 @@
                  $key->Timebook="17.00 – 19.00";
                }
                ?>
-         <!--  <?php if ($key->OnlineStatus==0) {
-                  $key->OnlineStatus="ใช้งาน";
-                }else{
-                 $key->OnlineStatus="ไม่ใช้งาน";
-               }?>  -->
-               
+       
                <?php if ($key->BookStatus==true) {
-                  $key->BookStatus="ชำระแล้ว";
+                  $key->BookStatus='<span style="color:green">ชำระแล้ว</span>';
                 }else{
-                 $key->BookStatus="ยังไม่ชำระ";
+                    $dateAdd = new DateTime($key->dateAdd);
+                    $date = new DateTime();
+                    if($dateAdd<$date){
+                        $key->BookStatus='<span style="color:red">หมดเวลาการชำระ</span>';   
+                    }else{
+                 $key->BookStatus='<span style="color:red">ยังไม่ชำระ</span>';
+                    }
                }?>
 
 			<?php echo "<td class='text-center'>" .$key->IdBooking .

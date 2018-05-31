@@ -52,6 +52,7 @@ class Booking_model extends CI_Model {
         }
 //        $this->db->where('delete_status', '0');
         $this->db->where('`DayBook`>=DATE(now())');
+        $this->db->where('DATE_ADD(`dateAdd`, INTERVAL 1 DAY)>=now()');
         return $this->db->get()->result();
     }
 
@@ -74,7 +75,7 @@ class Booking_model extends CI_Model {
         if ($session_data->work == 3) {
             $this->db->where('IdMem', $session_data->IdMem);
         }
-        $this->db->where('(`DayBook`<DATE(now()) or delete_status = 1)');
+        $this->db->where('(`DayBook`<DATE(now()) or delete_status = 1 or DATE_ADD(`dateAdd`, INTERVAL 1 DAY)<now())');
         $this->db->order_by('IdBooking', 'DESC');
         return $this->db->get()->result();
     }

@@ -75,11 +75,12 @@
                         <input type="hidden" name="lc" value="TH" />
                         <input type="hidden" name="currency_code" value="THB" />
                         <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-                        <input type="hidden" name="first_name" value="Sahaphap" />
-                        <input type="hidden" name="last_name" value="Malit" />
+                        <input type="hidden" name="first_name" value="ราเชษฐ์" />
+                        <input type="hidden" name="last_name" value="ญาติอภิรักาษ์" />
                         <input type="hidden" name="payer_email" value="Rachet_GolfClub@hotmail.com" />
                         <input type="hidden" name="item_number" id="item_number" value="" />
                         <input type="hidden" name="product_name" id="product_name" value="" />
+                        <input type="hidden" name="statusPay" value="booking" />
                         <button type="submit" id="btnSubmit" class="btn btn-success pull-left" name="submit"><span class="glyphicon glyphicon-bitcoin"></span> Submit Payment</button>
                     </form>
                     <?php }?>

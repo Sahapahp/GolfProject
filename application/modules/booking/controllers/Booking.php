@@ -8,15 +8,19 @@ class Booking extends MX_Controller {
         parent::__construct();
         $this->load->model('Booking_model');
         $this->load->helper('url');
-        $this->load->library('email');
+        $this->load->library('email'); 
+    }
 
+    public function check_permission(){
         $session_data = $this->session->logged_in;
         if ($session_data->work == null) {
             redirect(base_url(), 'refresh');
         }
     }
 
+
     public function index() {
+        $this->check_permission();
         $data['booking'] = $this->Booking_model->DataBooking();
         return $this->theme_admin->render('bookshowem_view', $data);
     }
@@ -26,25 +30,30 @@ class Booking extends MX_Controller {
     }
 
     public function callbookForm() {
+        $this->check_permission();
         $this->load->view('bookForm_view');
     }
 
     public function bookForm() {
+        $this->check_permission();
         $this->load->view('bookForm_view');
     }
 
     public function bookSHowEm() {
+        $this->check_permission();
         $data['booking'] = $this->Booking_model->DataBooking();
         return $this->theme_admin->render('bookshowem_view', $data);
     }
 
     public function showBooking() {
+        $this->check_permission();
         $data['booking'] = $this->Booking_model->DataBooking();
 
         $this->load->view('bookShow_view', $data);
     }
 
     public function formAddBook() {
+        $this->check_permission();
         /* return $this->theme_admin->render('addbook_view'); */
 
 
@@ -66,6 +75,7 @@ class Booking extends MX_Controller {
     }
 
     public function validate() {
+        $this->check_permission();
         $numCaddy = $this->input->post('CaddyNum');
         $id = $this->input->post('id');
         $caddy = array();
@@ -119,6 +129,7 @@ class Booking extends MX_Controller {
     }
 
     public function validateForm() {
+        $this->check_permission();
 
         $this->session->set_flashdata('done', 'จองสำเร็จแล้ว');
 
@@ -157,10 +168,12 @@ class Booking extends MX_Controller {
     /* } */
 
     public function callEdit() {
+        $this->check_permission();
         $this->load->view('editbook_view');
     }
 
     public function delete() {
+        $this->check_permission();
         $id = $this->input->get('id');
         if ($this->Booking_model->deleteBooking($id)) {
             return redirect('Booking/bookShowEm', 'refresh');
@@ -168,27 +181,32 @@ class Booking extends MX_Controller {
     }
 
     public function list_Booking() {
+        $this->check_permission();
         $result = $this->Booking_model->listBooking_status();
         echo json_encode($result);
     }
 
     public function get_Booking() {
+        $this->check_permission();
         $id = $this->input->post('id');
         $result = $this->Booking_model->get_Booking($id);
         echo json_encode($result);
     }
 
     public function historyBooking() {
+        $this->check_permission();
         $result['booking'] = $this->Booking_model->historyBooking();
         $this->theme_admin->render('historyBooking_view', $result);
     }
 
     public function printBooking() {
+        $this->check_permission();
         $result['booking'] = $this->Booking_model->printBooking();
         $this->load->view('printBooking_view', $result);
     }
 
     public function printDetail() {
+        $this->check_permission();
         $this->load->view('printDetail_view');
     }
 
@@ -201,6 +219,7 @@ class Booking extends MX_Controller {
     }
 
     public function check_Booking() {
+        $this->check_permission();
         $datePlay = $this->input->post('datePlay');
         $timeplay = $this->input->post('timeplay');
         $hole = $this->input->post('hole');
@@ -210,11 +229,13 @@ class Booking extends MX_Controller {
     }
 
     public function usingHistory() {
+        $this->check_permission();
         $result['booking'] = $this->Booking_model->historyBooking();
         $this->theme_admin->render('history_view', $result);
     }
 
     public function setBookingStatus() {
+        $this->check_permission();
         $id = $this->input->post('id');
         $result = $this->Booking_model->paySuccessful($id);
         echo print_r($result);
@@ -222,6 +243,7 @@ class Booking extends MX_Controller {
     }
     
      public function getCaddyBooking() {
+        $this->check_permission();
         $id = $this->input->post('id');
         $result = $this->Booking_model->getCaddyBooking($id);
         echo json_encode($result);

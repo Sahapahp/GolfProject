@@ -72,6 +72,9 @@
                         '<div> username: ' + dataJson[0].UserName + '</div>' +
                         '<div> อีเมล: ' + dataJson[0].Email + '</div>' +
                         '</div>';
+                if(dataJson[0].regis_premium == 1 && dataJson[0].MemPos==0){
+                    strHTML += '<a href="<?php echo base_url();?>Regis/regisPay?id='+dataJson[0].IdMem+'" class="btn btn-success">ชำระเงินค่าสมาชิกพรีเมียม</a>';
+                }
 
                 $('#bodyProfile').html(strHTML);
             });

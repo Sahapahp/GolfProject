@@ -11,7 +11,7 @@ class Regis extends MX_Controller {
     }
 
     public function index() {
-        $this->load->view('regis_view');
+//        $this->load->view('regis_view');
     }
 
     public function callFormRegis() {
@@ -50,18 +50,37 @@ class Regis extends MX_Controller {
             'idCard' => $idCard,
             'address' => $address,
             'phone' => $phone,
-            'MemPos' => $ClassMem,
+            'regis_premium' => $ClassMem,
+            'MemPos' => '0',
             'email' => $email,
         );
         $Member = $this->Regis_model->get_Member($username);
         if (count($Member) == 0) {
             $this->Regis_model->insertMember($data);
-            redirect(base_url().'Login/loginAll', 'refresh');
+            $insert_id = $this->Regis_model->get_maxID();
+//            $insert_id = json_decode($insert_id);
+            if($ClassMem=="1"){
+                redirect(base_url()."Regis/regisPay?id=".$insert_id[0]->maxID, 'refresh');
+            }else{
+                redirect(base_url().'Login/loginAll', 'refresh');
+            }
         }else{
             $dataMember['Member'] = $data;
             $dataMember['message'] = "Username มีผู้ใช้แล้ว !!!";
             $this->load->view('regisForm_view',$dataMember);
         }
     }
+    
+    public function regisPay(){
+        $this->load->view('regispay_view');
+    }
+    
+    public function update_mempos(){
+        $id = $this->input->post('id');
+        $result= $this->Regis_model->update_mempos($id);
+        echo print_r($result);
+    }
+    
+    
 
 }

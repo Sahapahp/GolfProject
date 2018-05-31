@@ -5,7 +5,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<style>
+            body{background-image: url(<?php echo base_url(); ?>assets/images/bg.jpg);
+                 background-size: cover; 
+                 background-repeat: no-repeat;}
+            </style>
         <script language="JavaScript">
             function chkNumber(ele)
             {
@@ -38,7 +42,7 @@
         </div>
 
 
-        <div class="container">
+        <div class="container" style="background-color:white">
             <div class="post" style="text-align: left;"> 
                 <h1 class="text-center">สมัครสมาชิก</h1>
                 <?php echo form_open('Regis/validateRegis'); ?>
@@ -115,12 +119,13 @@
 
                 </form>
                     </div>
+                
             </div>
 
 
 
             <!-- footer  -->
-            <div id="footer">
+            <div id="footer" style="background-color:#fff">
                 <div id="footer-content">
                     <div class="col float-left">
                         <h1>ติดต่อเรา</h1>

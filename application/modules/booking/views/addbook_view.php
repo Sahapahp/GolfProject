@@ -70,7 +70,7 @@ $session_data = $this->session->logged_in;
                     </select> 
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divPerson">
                     <label >จำนวนผู้เล่น :</label>
                     <select class="form-control" onchange="$('#calPrice').click()" id="person" name="Person" required>
                         <option value="">เลือกจำนวน ผู้เล่น</option>
@@ -168,8 +168,7 @@ $session_data = $this->session->logged_in;
                         $('#hole18').click(function (event) {
                             str = '<option value="1">06.00-11.30</option>' +
                                     '<option value="2">11.30-15.00</option>' +
-                                    '<option value="3">15.00-19.00</option>' +
-                                    '<option value="4">17.00-19.00</option>';
+                                    '<option value="3">15.00-19.00</option>';
                             $("#timeplay").children().remove().end().append(str);
                             $('#course').val('');
                             $('#divCourse').attr('style', 'display:none');
@@ -213,9 +212,23 @@ $session_data = $this->session->logged_in;
                         $('#AllDay').click(function (event) {
                             str = '<option value="5" selected>All day</option>';
                             $("#timeplay").children().remove().end().append(str);
+                            
                             $('#course').val('');
                             $('#divCourse').attr('style', 'display:none');
                             $('#course').attr('required', false);
+                            
+                            $('#person').val('');
+                            $('#divPerson').attr('style', 'display:none');
+                            $('#person').attr('required', false);
+                            
+                            $('#caddyNum').val('');
+                            $('#divCaddy').attr('style', 'display:none');
+                            $('#caddyNum').attr('required', false);
+                            
+                            $('#InsNum').val('');
+                            $('#divIns').attr('style', 'display:none');
+                            $('#InsNum').attr('required', false);
+                            
                             checkBook();
                         });
                         $('#caddyNum').change(function (event) {
@@ -428,6 +441,7 @@ if ($session_data->work == 3) {
                                                 $('#btnSubmit').attr('disabled', false);
                                             }
                                         }
+                                        if(json.length==0){$('#btnSubmit').attr('disabled', false);}
                                     } else {
                                         $('#btnSubmit').attr('disabled', false);
                                     }

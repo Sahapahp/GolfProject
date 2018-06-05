@@ -135,8 +135,10 @@
                                     time = "11.30-15.00";
                                 } else if (json[0].Timebook == 3) {
                                     time = "15.00-19.00";
-                                } else {
+                                } else if (json[0].Timebook == 4){
                                     time = "17.00-19.00";
+                                }else {
+                                    time = 'เหมาทั้งวัน';
                                 }
                                 if(json[0].BookStatus ==1){
                                     $('#btnSubmit').attr('style','display:none');

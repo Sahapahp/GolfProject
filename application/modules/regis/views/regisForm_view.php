@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="text">วันเกิด :</label>
-                        <input type="date" value="<?php if($message!=""){echo $Member['birthday'];}?>" name="birthday" class="form" required>
+                        <input type="date" value="<?php if($message!=""){echo $Member['birthday'];}?>" name="birthday" class="form" max="<?php echo date("Y-m-d"); ?>" required>
                     </div>
 
                     <div class="form-group">

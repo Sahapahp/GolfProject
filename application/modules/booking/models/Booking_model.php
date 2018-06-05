@@ -64,6 +64,12 @@ class Booking_model extends CI_Model {
 
     public function listBooking_status() {
 
+        $query = $this->db->query('SELECT `IdBooking`,`Person`,`DayBook`,`CaddyNum`,`InsNum`,`CarNum`,`fname`,`lname` FROM `booking` b LEFT JOIN rent_ins r on b.`IdBooking` = r.id_Booking where (`DayBook` =DATE(now()) AND r.id_Booking IS null) AND b.BookStatus = 1');
+        return $query->result();
+    }
+    
+    public function Booking_checkin() {
+
         $query = $this->db->query('SELECT `IdBooking`,`Person`,`DayBook`,`CaddyNum`,`InsNum`,`CarNum`,`fname`,`lname` FROM `booking` b LEFT JOIN rent_ins r on b.`IdBooking` = r.id_Booking where `DayBook` =DATE(now()) AND r.id_Booking IS null');
         return $query->result();
     }

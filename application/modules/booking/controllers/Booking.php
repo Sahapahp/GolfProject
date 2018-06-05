@@ -248,4 +248,10 @@ class Booking extends MX_Controller {
         $result = $this->Booking_model->getCaddyBooking($id);
         echo json_encode($result);
     }
+    
+    public function Booking_checkin() {
+        $this->check_permission();
+        $result = $this->Booking_model->Booking_checkin();
+        echo json_encode($result);
+    }
 }

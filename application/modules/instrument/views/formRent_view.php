@@ -44,7 +44,7 @@
     var car;
     function selectBooking() {
         $.ajax({
-            url: "<?php echo base_url() ?>Booking/list_Booking",
+            url: "<?php echo base_url() ?>Booking/Booking_checkin",
             type: "POST"
         }).done(function (data) {
             var json = JSON.parse(data);

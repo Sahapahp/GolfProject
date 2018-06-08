@@ -434,7 +434,7 @@ if ($session_data->work == 3) {
                                 } else {
                                     if (leng == 18) {
                                         for (i = 0; i < json.length; i++) {
-                                            if (json[i].Hole = 1) {
+                                            if (json[i].Hole == 1) {
                                                 alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
                                                 $('#btnSubmit').attr('disabled', true);
                                             } else {

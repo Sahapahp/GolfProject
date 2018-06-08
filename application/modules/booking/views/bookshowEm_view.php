@@ -52,8 +52,10 @@
                                 $key->Timebook = "11.30 – 15.00";
                             } else if ($key->Timebook == 3) {
                                 $key->Timebook = "15.00 – 19.00";
-                            } else {
+                            } else if ($key->Timebook == 4) {
                                 $key->Timebook = "17.00 – 19.00";
+                            } else {
+                                $key->Timebook = "เหมาทั้งวัน";
                             }
                             ?>
                             <!--  <?php

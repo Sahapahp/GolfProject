@@ -24,6 +24,7 @@
                     <th class="text-center">วัน</th>
                     <th class="text-center">เวลา</th>
                     <th class="text-center">การชำระ</th>
+                    <th class="text-center">วันที่ชำระ</th>
                     <th class="text-center">สภานะการจอง</th>
                     <th class="text-center" style="width: 100px;">จัดการ</th>
                 </tr>
@@ -36,6 +37,7 @@
                     <th class="text-center">วัน</th>
                     <th class="text-center">เวลา</th>
                     <th class="text-center">การชำระ</th>
+                    <th class="text-center">วันที่ชำระ</th>
                     <th class="text-center">สภานะการจอง</th>
                     <th class="text-center" style="width: 100px;">จัดการ</th>
                 </tr>
@@ -65,15 +67,22 @@
                                 $delete_status = '<span style="color:red">ยกเลิก</span>';
                             }
                             ?>  -->
+                            <!--  <?php
+                            if ($key->BookStatus == true) {
+                                $pay_date = $key->dateUpdate;
+                            } else {
+                                $pay_date = '<span style="color:red">-</span>';
+                            }
+                            ?>  -->
 
                             <?php
                             if ($key->BookStatus == true) {
                                 $pay = 1;
-                                $key->BookStatus =  '<span style="color:green">ชำระแล้ว</span>';
+                                $key->BookStatus = '<span style="color:green">ชำระแล้ว</span>';
                             } else {
                                 $pay = 0;
-                                
-                                $key->BookStatus =  '<span style="color:red">ยังไม่ชำระ</span>';
+
+                                $key->BookStatus = '<span style="color:red">ยังไม่ชำระ</span>';
                             }
                             ?>
 
@@ -91,34 +100,40 @@
                             "</td>";
                             ?>
                             <?php
+                            echo "<td class='text-center'>" . $pay_date .
+                            "</td>";
                             echo "<td class='text-center'>" . $delete_status .
                             "</td>";
                             ?>
                             <td>
                                 <div class="btn-group text-center">
-        <?php if ($session_data->work == 3) {
-            if($key->delete_status == 0){
-            ?>
-                                        <a href="booking/printDetail/?id=<?php echo $key->IdBooking; ?>" onClick="" class="btn btn-xs btn-success" data-toggle="tooltip" title="ชำระเงิน">
-                                            <i class="glyphicon glyphicon-folder-open"></i>
-                                        </a>
-        <?php }} ?>
-        <?php if ($pay == 0 ) { 
-                                    if($key->delete_status == 0){?>
-                                        <a href="Booking/formaddbook?id=<?php echo $key->IdBooking; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                        </a>
+                                    <?php
+                                    if ($session_data->work == 3) {
+                                        if ($key->delete_status == 0) {
+                                            ?>
+                                            <a href="booking/printDetail/?id=<?php echo $key->IdBooking; ?>" onClick="" class="btn btn-xs btn-success" data-toggle="tooltip" title="ชำระเงิน">
+                                                <i class="glyphicon glyphicon-folder-open"></i>
+                                            </a>
+                                        <?php }
+                                    } ?>
+        <?php if ($pay == 0) {
+            if ($key->delete_status == 0) {
+                ?>
+                                            <a href="Booking/formaddbook?id=<?php echo $key->IdBooking; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a>
 
-                                        <a href="booking/delete/?id=<?php echo $key->IdBooking; ?>" onClick="javascript:return confirm('คุณต้องการลบข้อมูลใช่หรือไม่');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="ลบ">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </a><?php }} ?>
+                                            <a href="booking/delete/?id=<?php echo $key->IdBooking; ?>" onClick="javascript:return confirm('คุณต้องการลบข้อมูลใช่หรือไม่');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="ลบ">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a><?php }
+        } ?>
 
 
                                 </div>
                             </td>
                         </tr>
 
-                    <?php endforeach; ?>
+    <?php endforeach; ?>
 <?php else: ?>
                     ไม่มีข้อมูล
 <?php endif; ?>
@@ -130,8 +145,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#example').DataTable({
-        "order": [[ 0, "desc" ]]
-    } );
+            "order": [[0, "desc"]]
+        });
     });
 </script>
 

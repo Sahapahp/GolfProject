@@ -119,7 +119,8 @@ class Booking_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('booking');
         if ($hole == 9) {
-            $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay' and `Course` = '$course') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
+//            $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay' and `Course` = '$course') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
+        $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");  
         } else if ($hole == 18){
             $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
         }else{
@@ -128,9 +129,21 @@ class Booking_model extends CI_Model {
 //        $this->db->where('`DayBook` >= date(now())');
         return $this->db->get()->result();
     }
+    
+    public function check_course($datePlay, $timeplay,$hole,$course) {
+        $this->db->select('*');
+        $this->db->from('booking');
+        $this->db->where('DayBook',$datePlay);
+        $this->db->where('TimeBook',$timeplay);
+        $this->db->where('Hole',$hole);
+        $this->db->where('course',$course);
+        $this->db->where('delete_status','0');
+        return $this->db->get()->result();
+    }
 
     public function paySuccessful($id) {
         $this->db->set('BookStatus', '1');
+        $this->db->set('dateUpdate', 'now()',false);
         $this->db->where('IdBooking', $id);
         return $this->db->update('booking');
     }

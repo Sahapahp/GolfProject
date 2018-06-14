@@ -46,7 +46,7 @@ $session_data = $this->session->logged_in;
                     <?php if ($session_data->work == 3) { ?>
                         <?php if ($session_data->MemPos == 1) { ?>
                             <input id="AllDay" type="radio" name="Hole" value="1">เหมาทั้งวัน 
-                        <?php
+                            <?php
                         }
                     }
                     ?>
@@ -131,7 +131,7 @@ $session_data = $this->session->logged_in;
                         <input id="pay1" type="radio" name="pay"  value="1" checked>ชำระแล้ว
                         <input id="pay0" type="radio" name="pay" value="0">ยังไม่ชำระ
                     </div>
-<?php } ?>
+                <?php } ?>
                 <button id="calPrice" type="button" class="btn btn-info pull" style="display: none">คำนวณราคา</button>
                 <button type="submit" id="btnSubmit" class=" btn btn-info pull">ตกลง</button>
 
@@ -207,28 +207,28 @@ $session_data = $this->session->logged_in;
                         });
 
                         $('#course').change(function (event) {
-                            checkBook();
+                            checkCourse();
                         });
                         $('#AllDay').click(function (event) {
                             str = '<option value="5" selected>All day</option>';
                             $("#timeplay").children().remove().end().append(str);
-                            
+
                             $('#course').val('');
                             $('#divCourse').attr('style', 'display:none');
                             $('#course').attr('required', false);
-                            
+
                             $('#person').val('');
                             $('#divPerson').attr('style', 'display:none');
                             $('#person').attr('required', false);
-                            
-                            $('#caddyNum').val('');
-                            $('#divCaddy').attr('style', 'display:none');
-                            $('#caddyNum').attr('required', false);
-                            
-                            $('#InsNum').val('');
-                            $('#divIns').attr('style', 'display:none');
-                            $('#InsNum').attr('required', false);
-                            
+
+//                            $('#caddyNum').val('');
+//                            $('#divCaddy').attr('style', 'display:none');
+//                            $('#caddyNum').attr('required', false);
+//                            
+//                            $('#InsNum').val('');
+//                            $('#divIns').attr('style', 'display:none');
+//                            $('#InsNum').attr('required', false);
+
                             checkBook();
                         });
                         $('#caddyNum').change(function (event) {
@@ -327,12 +327,12 @@ $session_data = $this->session->logged_in;
                             var carNum = $('#carNum').val();
                             var InsNum = $('#InsNum').val();
                             var MemPos = '<?php
-if ($session_data->work == 3) {
-    echo $session_data->MemPos;
-} else {
-    echo "0";
-}
-?>';
+                if ($session_data->work == 3) {
+                    echo $session_data->MemPos;
+                } else {
+                    echo "0";
+                }
+                ?>';
                             var discount = 0;
                             ///หาวัน 0-6 0=อาทิตย์
                             var day = new Date(datePlay);
@@ -370,7 +370,7 @@ if ($session_data->work == 3) {
                                 sum = parseFloat(person * newData[0].price) + parseFloat(caddyNum * PriceItem[0].priceCaddy) + parseFloat(carNum * PriceItem[0].priceCar) + parseFloat(InsNum * PriceItem[0].priceIns);
                             }
                             if (MemPos == '1') {
-                                discount = discount + 500;
+                                discount = discount + PriceItem[0].pre_discount;
                             }
                             console.log(discount);
                             $('#discount').val(discount);
@@ -414,7 +414,7 @@ if ($session_data->work == 3) {
                             course = $('#course').val();
 
                             if ($('input[name=Hole]:checked').val() == 9) {
-                                leng = 1;
+                                leng = 4;
                             } else if ($('input[name=Hole]:checked').val() == 18) {
                                 leng = 18;
                             } else {
@@ -441,7 +441,9 @@ if ($session_data->work == 3) {
                                                 $('#btnSubmit').attr('disabled', false);
                                             }
                                         }
-                                        if(json.length==0){$('#btnSubmit').attr('disabled', false);}
+                                        if (json.length == 0) {
+                                            $('#btnSubmit').attr('disabled', false);
+                                        }
                                     } else {
                                         $('#btnSubmit').attr('disabled', false);
                                     }
@@ -449,7 +451,28 @@ if ($session_data->work == 3) {
                                 }
                             });
                         }
+                        function checkCourse() {
+                            datePlay = $('#datePlay').val();
+                            timeplay = $('#timeplay').val();
+                            hole = $('input[name=Hole]:checked').val();
+                            course = $('#course').val();
 
+                            $.ajax({
+                                url: "<?php echo base_url() ?>Booking/check_course",
+                                type: "POST",
+                                data: {datePlay: datePlay, timeplay: timeplay, hole: hole, course: course}
+                            }).done(function (data) {
+                                var json = JSON.parse(data);
+                                console.log(json);
+                                if (json.length) {
+                                    alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
+                                    $('#btnSubmit').attr('disabled', true);
+                                } else {
+                                    $('#btnSubmit').attr('disabled', false);
+                                    checkBook();
+                                }
+                            });
+                        }
                         var getObjectByValue = function (array, key, value) {
                             return array.filter(function (object) {
                                 return object[key] === value;

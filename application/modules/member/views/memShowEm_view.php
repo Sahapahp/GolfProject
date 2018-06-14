@@ -18,6 +18,7 @@
                                         <th class="text-center">ชื่อ</th>
                                         <th class="text-center">นามสกุล</th>
                                         <th class="text-center">ตำแหน่ง</th>
+                                        <th class="text-center">วันที่เข้ารวม</th>
                                         <th class="text-center">จัดการ</th>
                                     </tr>
                                 </thead>
@@ -28,6 +29,7 @@
                                         <th class="text-center">ชื่อ</th>
                                         <th class="text-center">นามสกุล</th>
                                         <th class="text-center">ตำแหน่ง</th>
+                                        <th class="text-center">วันที่เข้ารวม</th>
                                         <th class="text-center">จัดการ</th>
                                     </tr>
                                 </tfoot>
@@ -46,7 +48,7 @@
                                                 ?>
 
                                                 <?php echo "<td class='text-center'>" . $key->IdMem . "</td> <td class='text-center'>" . $key->UserName . "</td> "; ?>
-                                                <?php echo "<td class='text-center'>" . $key->FName . "</td> <td class='text-center'>" . $key->LName . "</td><td class='text-center'>" . $key->MemPos . "</td> "; ?>
+                                                <?php echo "<td class='text-center'>" . $key->FName . "</td> <td class='text-center'>" . $key->LName . "</td><td class='text-center'>" . $key->MemPos . "</td><td class='text-center'>" . $key->cr_date . "</td> "; ?>
                                                 <td>
                                                     <div class="btn-group text-center">
                                                         <a href="formUpdateMem?id=<?= $key->IdMem ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="แก้ไข">

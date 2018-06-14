@@ -227,6 +227,16 @@ class Booking extends MX_Controller {
         $result = $this->Booking_model->check_Booking($datePlay, $timeplay,$hole,$course);
         echo json_encode($result);
     }
+    
+    public function check_course() {
+        $this->check_permission();
+        $datePlay = $this->input->post('datePlay');
+        $timeplay = $this->input->post('timeplay');
+        $hole = $this->input->post('hole');
+        $course = $this->input->post('course');
+        $result = $this->Booking_model->check_course($datePlay, $timeplay,$hole,$course);
+        echo json_encode($result);
+    }
 
     public function usingHistory() {
         $this->check_permission();

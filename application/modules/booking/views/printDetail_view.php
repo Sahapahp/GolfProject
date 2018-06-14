@@ -146,7 +146,12 @@
                                 $('#time').html('ช่วงเวลา : ' + time);
                                 $('#item_number').val(json[0].IdBooking);
                                 $('#product_name').val('ค่าเช่าสนามกอล์ฟ');
-                                $('#person').html(json[0].Person + " คน");
+                                if(json[0].Hole == 1){
+                                    $('#person').html("เหมารวม");
+                                }else{
+                                    $('#person').html(json[0].Person + " คน");
+                                }
+                                
                                 $('#caddy').html(json[0].CaddyNum + " คน");
                                 $('#ins').html(json[0].CarNum + " ชุด");
                                 $('#car').html(json[0].InsNum + " คัน");
@@ -184,7 +189,12 @@
                                 newData = getObjectByValue(newData, 'day_play', bookDay);
                                 console.log(newData);
 
-                                $('#totalperson').html((json[0].Person * newData[0].price) + " บาท");
+                                if(json[0].Hole == 1){
+                                    $('#totalperson').html(PriceItem[0].priceAllDay + " บาท");
+                                }else{
+                                    $('#totalperson').html((json[0].Person * newData[0].price) + " บาท");
+                                }
+                                
                                 $('#total').html(json[0].sumtotal + " บาท");
                             });
                         }

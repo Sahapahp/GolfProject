@@ -30,8 +30,13 @@
     </div>
     <div class="panel-body">
         <table class="table">
-            <tr><th>ราคาเหมาทั้งวัน</th><th>ราคาแคดดี้/คน</th><th>ราคาไม้กอล์ฟ/ชุด</th><th>ราคารถกอล์ฟ/คัน</th></tr>
-            <tr><td> <input id="A1" type="number" class="form-control" style="width: 100px;"></td><td><input id="A2" type="number" class="form-control" style="width: 100px;"></td><td><input id="A3" type="number" class="form-control" style="width: 100px;"></td><td><input id="A4" type="number" class="form-control" style="width: 100px;"></td></tr>
+            <tr><th>ราคาเหมาทั้งวัน</th><th>ราคาแคดดี้/คน</th><th>ราคาไม้กอล์ฟ/ชุด</th><th>ราคารถกอล์ฟ/คัน</th><th>ส่วนลดสมาชิกพรีเมี่ยม</th></tr>
+            <tr><td> <input id="A1" type="number" class="form-control" style="width: 100px;"></td>
+                <td><input id="A2" type="number" class="form-control" style="width: 100px;"></td>
+                <td><input id="A3" type="number" class="form-control" style="width: 100px;"></td>
+                <td><input id="A4" type="number" class="form-control" style="width: 100px;"></td>
+                <td><input id="A5" type="number" class="form-control" style="width: 100px;"></td>
+            </tr>
         </table>
     </div>
     <div class="panel-footer">
@@ -54,6 +59,7 @@
             $('#A2').val(json[0].priceCaddy);
             $('#A3').val(json[0].priceIns);
             $('#A4').val(json[0].priceCar);
+            $('#A5').val(json[0].pre_discount);
         });
     }
 
@@ -90,14 +96,14 @@
     
     function setPriceItem() {
         var data = [];
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < 5; i++) {
             data.push($('#A' + (i + 1) + '').val());
         }
         console.log(data);
         $.ajax({
             url: "<?php echo base_url() ?>Employee/setPriceItem",
             type: "POST",
-            data:{A1:data[0],A2:data[1],A3:data[2],A4:data[3]}
+            data:{A1:data[0],A2:data[1],A3:data[2],A4:data[3],A5:data[4]}
         }).done(function (data) {
             var json = JSON.parse(data);
             console.log(json);

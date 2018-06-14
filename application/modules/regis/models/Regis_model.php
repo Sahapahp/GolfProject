@@ -6,6 +6,7 @@ class Regis_model extends CI_Model {
         
           public function insertMember($data)
         {
+               $this->db->set('cr_date','now()',false);
                return $this->db->insert('member', $data);
         }
         public function get_Member($UserName)

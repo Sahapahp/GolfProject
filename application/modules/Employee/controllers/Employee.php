@@ -251,7 +251,8 @@ class Employee extends MX_Controller {
             'priceAllDay' =>$this->input->post('A1'),
             'priceCaddy'=>$this->input->post('A2'),
             'priceIns'=>$this->input->post('A3'),
-            'priceCar'=>$this->input->post('A4')
+            'priceCar'=>$this->input->post('A4'),
+            'pre_discount'=>$this->input->post('A5')
         );
         $result = $this->Employee_model->setPriceItem($data);
         echo json_encode($result);

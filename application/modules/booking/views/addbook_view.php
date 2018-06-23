@@ -413,13 +413,13 @@ $session_data = $this->session->logged_in;
                             hole = $('input[name=Hole]:checked').val();
                             course = $('#course').val();
 
-                            if ($('input[name=Hole]:checked').val() == 9) {
-                                leng = 4;
-                            } else if ($('input[name=Hole]:checked').val() == 18) {
-                                leng = 18;
-                            } else {
-                                leng = 1;
-                            }
+//                            if ($('input[name=Hole]:checked').val() == 9) {
+//                                leng = 4;
+//                            } else if ($('input[name=Hole]:checked').val() == 18) {
+//                                leng = 18;
+//                            } else {
+//                                leng = 1;
+//                            }
 
                             $.ajax({
                                 url: "<?php echo base_url() ?>Booking/check_Booking",
@@ -428,28 +428,56 @@ $session_data = $this->session->logged_in;
                             }).done(function (data) {
                                 var json = JSON.parse(data);
                                 console.log(json);
-                                if (json.length >= leng) {
+                                if (json[0].length > 0) {
+                                    alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
+                                    $('#btnSubmit').attr('disabled', true);
+                                    return;
+                                } else {
+
+                                    $('#btnSubmit').attr('disabled', false);
+
+                                }
+                                if (json[1].length >= 18) {
                                     alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
                                     $('#btnSubmit').attr('disabled', true);
                                 } else {
-                                    if (leng == 18) {
-                                        for (i = 0; i < json.length; i++) {
-                                            if (json[i].Hole == 1) {
-                                                alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
-                                                $('#btnSubmit').attr('disabled', true);
-                                            } else {
-                                                $('#btnSubmit').attr('disabled', false);
-                                            }
+                                    for (i = 0; i < json[1].length; i++) {
+                                        if (json[1][0].Hole == 1 || $('input[name=Hole]:checked').val() == 1) {
+                                            alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
+                                            $('#btnSubmit').attr('disabled', true);
+                                            return;
+                                        }else{
+                                           $('#btnSubmit').attr('disabled', false); 
                                         }
-                                        if (json.length == 0) {
-                                            $('#btnSubmit').attr('disabled', false);
-                                        }
-                                    } else {
-                                        $('#btnSubmit').attr('disabled', false);
                                     }
+                                    
 
                                 }
                             });
+//                            $.ajax({
+//                                url: "<?php echo base_url() ?>Booking/count_Booking",
+//                                type: "POST",
+//                                data: {datePlay: datePlay, timeplay: timeplay, hole: hole, course: course}
+//                            }).done(function (data) {
+//                                var json = JSON.parse(data);
+//                                console.log(json);
+//                                if (json.length >= 18) {
+//                                    alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
+//                                    $('#btnSubmit').attr('disabled', true);
+//                                } else {
+//                                    for (i = 0; i < json.length; i++) {
+//                                        if (json[0].Hole == 1 || $('input[name=Hole]:checked').val() == 1) {
+//                                            alert("สนามกอล์ฟไม่ว่าง กรุณาเลือกวัน เวลา หรือ course(9 หลุม) ใหม่");
+//                                            $('#btnSubmit').attr('disabled', true);
+//                                            return;
+//                                        }else{
+//                                           $('#btnSubmit').attr('disabled', false); 
+//                                        }
+//                                    }
+//                                    
+//
+//                                }
+//                            });
                         }
                         function checkCourse() {
                             datePlay = $('#datePlay').val();

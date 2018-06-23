@@ -56,6 +56,13 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function getBooking($id) {
+        $this->db->select('*');
+        $this->db->from('booking');
+        $this->db->where('IdBooking', $id);
+        return $this->db->get()->result();
+    }
+
     public function printBooking() {
         $this->db->select('*');
         $this->db->from('booking');
@@ -67,7 +74,7 @@ class Booking_model extends CI_Model {
         $query = $this->db->query('SELECT `IdBooking`,`Person`,`DayBook`,`CaddyNum`,`InsNum`,`CarNum`,`fname`,`lname` FROM `booking` b LEFT JOIN rent_ins r on b.`IdBooking` = r.id_Booking where (`DayBook` =DATE(now()) AND r.id_Booking IS null)');
         return $query->result();
     }
-    
+
     public function Booking_checkin() {
 
         $query = $this->db->query('SELECT `IdBooking`,`Person`,`DayBook`,`CaddyNum`,`InsNum`,`CarNum`,`fname`,`lname` FROM `booking` b LEFT JOIN rent_ins r on b.`IdBooking` = r.id_Booking where (`DayBook` =DATE(now()) AND r.id_Booking IS null) AND b.BookStatus = 1');
@@ -120,38 +127,57 @@ class Booking_model extends CI_Model {
         $this->db->from('booking');
         if ($hole == 9) {
 //            $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay' and `Course` = '$course') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
-        $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");  
-        } else if ($hole == 18){
             $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
-        }else{
+        } else if ($hole == 18) {
+            $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
+        } else {
             $this->db->where("`DayBook` = '$datePlay' ");
         }
-//        $this->db->where('`DayBook` >= date(now())');
+        $session_data = $this->session->logged_in;
+        if ($session_data->work == 3) {
+            $this->db->where('IdMem',$session_data->IdMem);
+        }else{
+            $this->db->where('IdEmp',$session_data->IdEmp);
+        }
         return $this->db->get()->result();
     }
     
-    public function check_course($datePlay, $timeplay,$hole,$course) {
+    public function count_Booking($datePlay, $timeplay, $hole, $course) {
         $this->db->select('*');
         $this->db->from('booking');
-        $this->db->where('DayBook',$datePlay);
-        $this->db->where('TimeBook',$timeplay);
-        $this->db->where('Hole',$hole);
-        $this->db->where('course',$course);
-        $this->db->where('delete_status','0');
+        if ($hole == 9) {
+//            $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay' and `Course` = '$course') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
+            $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
+        } else if ($hole == 18) {
+            $this->db->where(" ((`DayBook` = '$datePlay' and `Timebook` = '$timeplay') or (`DayBook` = '$datePlay' and `Hole` = 1)) and delete_status = 0");
+        } else {
+            $this->db->where("`DayBook` = '$datePlay' ");
+        }
+        return $this->db->get()->result();
+    }
+
+    public function check_course($datePlay, $timeplay, $hole, $course) {
+        $this->db->select('*');
+        $this->db->from('booking');
+        $this->db->where('DayBook', $datePlay);
+        $this->db->where('TimeBook', $timeplay);
+        $this->db->where('Hole', $hole);
+        $this->db->where('course', $course);
+        $this->db->where('delete_status', '0');
         return $this->db->get()->result();
     }
 
     public function paySuccessful($id) {
         $this->db->set('BookStatus', '1');
-        $this->db->set('dateUpdate', 'now()',false);
+        $this->db->set('dateUpdate', 'now()', false);
         $this->db->where('IdBooking', $id);
         return $this->db->update('booking');
     }
-    
+
     public function getCaddyBooking($id) {
         $this->db->select('*');
         $this->db->from('workcaddy');
-        $this->db->join('employee',"workcaddy.idCaddy = employee.IdEmp");
+        $this->db->join('employee', "workcaddy.idCaddy = employee.IdEmp");
         $this->db->where("idBooking = $id");
         return $this->db->get()->result();
     }

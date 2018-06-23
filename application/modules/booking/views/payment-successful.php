@@ -7,7 +7,9 @@ if (isset($_GET['id'])) {
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500">
 <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/Loading/waitMe.css">
 
-<span></span>
+<span>
+
+</span>
 <script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/Loading/waitMe.js"></script>
 <script>
@@ -51,5 +53,7 @@ if (isset($_GET['id'])) {
             });
         }
     }
+    
+    
 
 </script>

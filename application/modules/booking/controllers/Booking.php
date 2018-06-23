@@ -212,6 +212,7 @@ class Booking extends MX_Controller {
 
     public function paySuccessful() {
         $this->load->view('payment-successful');
+        
     }
 
     public function payCancel() {
@@ -224,9 +225,21 @@ class Booking extends MX_Controller {
         $timeplay = $this->input->post('timeplay');
         $hole = $this->input->post('hole');
         $course = $this->input->post('course');
-        $result = $this->Booking_model->check_Booking($datePlay, $timeplay,$hole,$course);
-        echo json_encode($result);
+        $result1 = $this->Booking_model->check_Booking($datePlay, $timeplay,$hole,$course);
+        $result2 = $this->Booking_model->count_Booking($datePlay, $timeplay,$hole,$course);
+        $data = array($result1,$result2);
+        echo json_encode($data);
     }
+    
+//    public function count_Booking() {
+//        $this->check_permission();
+//        $datePlay = $this->input->post('datePlay');
+//        $timeplay = $this->input->post('timeplay');
+//        $hole = $this->input->post('hole');
+//        $course = $this->input->post('course');
+//        $result = $this->Booking_model->count_Booking($datePlay, $timeplay,$hole,$course);
+//        echo json_encode($result);
+//    }
     
     public function check_course() {
         $this->check_permission();
@@ -262,6 +275,12 @@ class Booking extends MX_Controller {
     public function Booking_checkin() {
         $this->check_permission();
         $result = $this->Booking_model->Booking_checkin();
+        echo json_encode($result);
+    }
+    
+    public function getBooking(){
+        $id = $this->input->post('id');
+        $result = $this->Booking_model->getBooking($id);
         echo json_encode($result);
     }
 }

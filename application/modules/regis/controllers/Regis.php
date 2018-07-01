@@ -54,7 +54,7 @@ class Regis extends MX_Controller {
             'MemPos' => '0',
             'email' => $email,
         );
-        $Member = $this->Regis_model->get_Member($username);
+        $Member = $this->Regis_model->get_Member($username,$email);
         if (count($Member) == 0) {
             $this->Regis_model->insertMember($data);
             $insert_id = $this->Regis_model->get_maxID();
@@ -66,7 +66,7 @@ class Regis extends MX_Controller {
             }
         }else{
             $dataMember['Member'] = $data;
-            $dataMember['message'] = "Username มีผู้ใช้แล้ว !!!";
+            $dataMember['message'] = "Username หรือ Email มีผู้ใช้แล้ว !!!";
             $this->load->view('regisForm_view',$dataMember);
         }
     }

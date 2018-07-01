@@ -9,11 +9,11 @@ class Regis_model extends CI_Model {
                $this->db->set('cr_date','now()',false);
                return $this->db->insert('member', $data);
         }
-        public function get_Member($UserName)
+        public function get_Member($UserName,$email)
         {
                $this->db->select('*');
                $this->db->from('Member');
-               $this->db->where('UserName',$UserName);
+               $this->db->where("UserName='$UserName' or Email = '$email'");
                return $this->db->get()->result();
         }
         public function get_maxID()

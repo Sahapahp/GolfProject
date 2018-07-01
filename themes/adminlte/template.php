@@ -166,6 +166,12 @@
                             <span>ประวัติการจอง</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="<?php echo base_url(); ?>Employee/callcaddyshow" class="submenu-toggle">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                            <span>ข้อมูลแคดดี้</span>
+                        </a>
+                    </li>
                 </ul>
             <?php } elseif ($session_data->work == 1) { ?>
                 <ul>

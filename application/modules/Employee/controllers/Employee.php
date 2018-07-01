@@ -70,6 +70,7 @@ class Employee extends MX_Controller {
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
             'Position' => $this->input->post('Position'),
+            'experience' => $this->input->post('experience'),
         );
         /* $this->load->model('Employee_model'); */
 

@@ -54,7 +54,7 @@
                             </tr> 
                         </table>
                         <hr>
-                        <div  style="width: 500px;">จำนวนผู้เล่น :  <span id="person">...</span><span class="pull-right" id="totalperson">...</span></div>
+                        <div  style="width: 500px;">ราคาออกรอบ :  <span id="person">...</span><span class="pull-right" id="totalperson">...</span></div>
                         <div style="width: 500px;">จำนวนแคดดี้ :  <span id="caddy">...</span><span class="pull-right" id="totalcaddy">...</span></div>
                         <div style="width: 500px;">จำนวนชุดไม้กอล์ฟ :  <span id="ins">...</span><span class="pull-right" id="totalins">...</span></div>
                         <div style="width: 500px;">จำนวนรถกอล์ฟ :  <span id="car">...</span><span class="pull-right" id="totalcar">...</span></div>
@@ -68,22 +68,23 @@
                 <div class="col-xs-12">
                     <button onclick="printDetail()" target="_blank" class="btn btn-default pull-left"><span class="glyphicon glyphicon-print"></span> Print</button>
                     <?php $session_data = $this->session->logged_in;
-                            if ($session_data->work == 3) {?>
-                    <form class="paypal" action="" method="post" id="paypal_form" target="_blank">
-                        <input type="hidden" name="cmd" value="_xclick" />
-                        <input type="hidden" name="no_note" value="1" />
-                        <input type="hidden" name="lc" value="TH" />
-                        <input type="hidden" name="currency_code" value="THB" />
-                        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-                        <input type="hidden" name="first_name" value="ราเชษฐ์" />
-                        <input type="hidden" name="last_name" value="ญาติอภิรักาษ์" />
-                        <input type="hidden" name="payer_email" value="Rachet_GolfClub@hotmail.com" />
-                        <input type="hidden" name="item_number" id="item_number" value="" />
-                        <input type="hidden" name="product_name" id="product_name" value="" />
-                        <input type="hidden" name="statusPay" value="booking" />
-                        <button type="submit" id="btnSubmit" class="btn btn-success pull-left" name="submit"><span class="glyphicon glyphicon-bitcoin"></span> Submit Payment</button>
-                    </form>
-                    <?php }?>
+                    if ($session_data->work == 3) {
+                        ?>
+                        <form class="paypal" action="" method="post" id="paypal_form" target="_blank">
+                            <input type="hidden" name="cmd" value="_xclick" />
+                            <input type="hidden" name="no_note" value="1" />
+                            <input type="hidden" name="lc" value="TH" />
+                            <input type="hidden" name="currency_code" value="THB" />
+                            <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+                            <input type="hidden" name="first_name" value="ราเชษฐ์" />
+                            <input type="hidden" name="last_name" value="ญาติอภิรักาษ์" />
+                            <input type="hidden" name="payer_email" value="Rachet_GolfClub@hotmail.com" />
+                            <input type="hidden" name="item_number" id="item_number" value="" />
+                            <input type="hidden" name="product_name" id="product_name" value="" />
+                            <input type="hidden" name="statusPay" value="booking" />
+                            <button type="submit" id="btnSubmit" class="btn btn-success pull-left" name="submit"><span class="glyphicon glyphicon-bitcoin"></span> Submit Payment</button>
+                        </form>
+<?php } ?>
                     </button>
                 </div>
             </div>
@@ -129,40 +130,36 @@
                                 $('#day').html('วันที่เล่น : ' + json[0].DayBook);
                                 $('#item_number').val('#' + id);
                                 $('#paypal_form').attr('action', '<?php echo base_url(); ?>assets/payments/payments.php?price=' + json[0].sumtotal);
-                                
+
                                 if (json[0].Timebook == 1) {
                                     time = "06.00-11.30";
                                 } else if (json[0].Timebook == 2) {
                                     time = "11.30-15.00";
                                 } else if (json[0].Timebook == 3) {
                                     time = "15.00-19.00";
-                                } else if (json[0].Timebook == 4){
+                                } else if (json[0].Timebook == 4) {
                                     time = "17.00-19.00";
-                                }else {
+                                } else {
                                     time = 'เหมาทั้งวัน';
                                 }
-                                if(json[0].BookStatus ==1){
-                                    $('#btnSubmit').attr('style','display:none');
+                                if (json[0].BookStatus == 1) {
+                                    $('#btnSubmit').attr('style', 'display:none');
                                 }
                                 $('#time').html('ช่วงเวลา : ' + time);
                                 $('#item_number').val(json[0].IdBooking);
                                 $('#product_name').val('ค่าเช่าสนามกอล์ฟ');
-                                if(json[0].Hole == 1){
-                                    $('#person').html("เหมารวม");
-                                }else{
-                                    $('#person').html(json[0].Person + " คน");
-                                }
-                                
+
+
                                 $('#caddy').html(json[0].CaddyNum + " คน");
                                 $('#ins').html(json[0].InsNum + " ชุด");
                                 $('#car').html(json[0].CarNum + " คัน");
 
-                                
+
                                 $('#totalcaddy').html((json[0].CaddyNum * PriceItem[0].priceCaddy) + " บาท");
-                                $('#discount').html('-'+json[0].discount + " บาท");
+                                $('#discount').html('-' + json[0].discount + " บาท");
                                 $('#totalins').html((json[0].InsNum * PriceItem[0].priceCar) + " บาท");
                                 $('#totalcar').html((json[0].CarNum * PriceItem[0].priceIns) + " บาท");
-                                
+
                                 ///หาวัน 0-6 0=อาทิตย์
                                 var day = new Date(json[0].DayBook);
                                 var bookDay = day.getDay();
@@ -190,13 +187,17 @@
                                 console.log(newData);
                                 newData = getObjectByValue(newData, 'day_play', bookDay);
                                 console.log(newData);
-
-                                if(json[0].Hole == 1){
+                                if (json[0].Hole == 1) {
+                                    $('#person').html("เหมารวม");
+                                } else {
+                                    $('#person').html(json[0].Person + " คน คนละ " + newData[0].price + ' บาท');
+                                }
+                                if (json[0].Hole == 1) {
                                     $('#totalperson').html(PriceItem[0].priceAllDay + " บาท");
-                                }else{
+                                } else {
                                     $('#totalperson').html((json[0].Person * newData[0].price) + " บาท");
                                 }
-                                
+
                                 $('#total').html(json[0].sumtotal + " บาท");
                             });
                         }
@@ -205,18 +206,18 @@
                             $.ajax({
                                 url: "<?php echo base_url() ?>Booking/getCaddyBooking",
                                 type: "POST",
-                                data:{id:id}
+                                data: {id: id}
                             }).done(function (data) {
                                 var json = JSON.parse(data);
                                 console.log(json);
                                 var str = "<br><b>รายชื่อแคดดี้</b><br>";
-                                for(i=0;i<json.length;i++){
-                                    str += (i+1)+" "+json[i].FName+" "+json[i].LName+"<br>";
+                                for (i = 0; i < json.length; i++) {
+                                    str += (i + 1) + " " + json[i].FName + " " + json[i].LName + "<br>";
                                 }
                                 $('#listCaddy').html(str);
                             });
                         }
-                        
+
                         function printDetail() {
                             window.print();
                         }

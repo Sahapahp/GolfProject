@@ -12,13 +12,6 @@
     ele.onKeyPress=vchar;
     }
 </script>
-
-  <!-- /MAIN body --> 
- <div class="page">
-  <!-- /MAIN body --> 
-  <section class="content-wrapper" role="main">
-    <div class="content" id="main-page-content "> 
-     
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>

@@ -17,7 +17,7 @@ $session_data = $this->session->logged_in;
     </div>
     <div class="panel-body">
         <div class="post"> 
-            <form >
+            <form id="formBooking">
                 <input class="form-control" id="id" type="text" name="id" style="display: none">
                 <div class="form-group" id="divFname">
                     <label>ชื่อ :</label>
@@ -133,17 +133,68 @@ $session_data = $this->session->logged_in;
                     </div>
                 <?php } ?>
                 <button id="calPrice" type="button" class="btn btn-info pull" style="display: none">คำนวณราคา</button>
-                <button type="submit" id="btnSubmit" class=" btn btn-info pull">ตกลง</button>
-
-
+                <button type="submit" id="btnCheckSubmit" class=" btn btn-info pull" style="display:none">ตกลง</button>
             </form>
+            <p id="btnSubmit" class=" btn btn-info pull">ตกลง</p>
         </div>
     </div>
 </div>
-
+<div class="modal" id="modalComBooking" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">แสดงรายละเอียดค่าจอง</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+                        <b>#รหัสผู้จอง : <?php
+                            $session_data = $this->session->logged_in;
+                            if ($session_data->work == 2) {
+                                echo $session_data->IdEmp;
+                            } else {
+                                echo $session_data->IdMem;
+                            }
+                            ?></b>
+                        <table class="">
+                            <tr>  
+                                <td id="day" style="width: 150px;">วันที่เล่น</td>
+                                <td id="time" style="width: 150px;">ช่วงเวลา</td>
+                            </tr> 
+                        </table>
+                        <hr>
+                        <div  style="width: 500px;">จำนวนผู้เล่น :  <span id="personModal">...</span><span class="pull-right" id="totalperson">...</span></div>
+                        <div style="width: 500px;">จำนวนแคดดี้ :  <span id="caddyModal">...</span><span class="pull-right" id="totalcaddy">...</span></div>
+                        <div style="width: 500px;">จำนวนชุดไม้กอล์ฟ :  <span id="insModal">...</span><span class="pull-right" id="totalins">...</span></div>
+                        <div style="width: 500px;">จำนวนรถกอล์ฟ :  <span id="carModal">...</span><span class="pull-right" id="totalcar">...</span></div>
+                        <div style="width: 500px;">ส่วนลด :  <span id="discountModal" class="pull-right">...</span></div>
+                        <b><div style="width: 500px;">รวมเป็นเงิน :  <span id="totalModal" class="pull-right">...</span></div></b>
+                    </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" id="comfirmBooking" class="btn btn-success">ตกลง</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript">
+
+$(function() {
+   $("#btnSubmit").click(function(){
+      $('#modalComBooking').modal('show');
+   });
+});
+
+$(function() {
+   $("#comfirmBooking").click(function(){
+      $('#btnCheckSubmit').click();
+   });
+});
 
 
                         $('#hole9').click(function (event) {
@@ -319,6 +370,7 @@ $session_data = $this->session->logged_in;
 
 
                         $('#calPrice').click(function (event) {
+                            hole = $('input[name=Hole]:checked').val();
                             var datePlay = $('#datePlay').val();
                             var timeplay = $('#timeplay').val();
                             var course = $('#course').val();
@@ -333,6 +385,29 @@ $session_data = $this->session->logged_in;
                     echo "0";
                 }
                 ?>';
+                        if(hole == 1){
+                                    $('#personModal').html("เหมารวม");
+                                }else{
+                                    $('#personModal').html(person + " คน");
+                                }
+                                
+                                $('#caddyModal').html(caddyNum + " คน");
+                                $('#insModal').html(InsNum + " ชุด");
+                                $('#carModal').html(carNum + " คัน");
+                                
+                                 if (timeplay == 1) {
+                                    time = "06.00-11.30";
+                                } else if (timeplay == 2) {
+                                    time = "11.30-15.00";
+                                } else if (timeplay == 3) {
+                                    time = "15.00-19.00";
+                                } else if (timeplay == 4){
+                                    time = "17.00-19.00";
+                                }else {
+                                    time = 'เหมาทั้งวัน';
+                                }
+                                $('#time').html('ช่วงเวลา : ' + time);
+                                $('#day').html('วันที่เล่น : ' + datePlay);
                             var discount = 0;
                             ///หาวัน 0-6 0=อาทิตย์
                             var day = new Date(datePlay);
@@ -376,6 +451,19 @@ $session_data = $this->session->logged_in;
                             $('#discount').val(discount);
                             sum = sum - discount;
                             $('#sumTotal').val(sum);
+                            
+                             
+                             $('#totalcaddy').html(parseFloat(caddyNum * PriceItem[0].priceCaddy) + " บาท");
+                             $('#discountModal').html('-'+discount + " บาท");
+                             $('#totalins').html(parseFloat(carNum * PriceItem[0].priceCar)+ " บาท");
+                             $('#totalcar').html(parseFloat(InsNum * PriceItem[0].priceIns) + " บาท");
+                             if(hole == 1){
+                                    $('#totalperson').html(PriceItem[0].priceAllDay + " บาท");
+                                }else{
+                                    $('#totalperson').html(parseFloat(person * newData[0].price) + " บาท");
+                                }
+                                
+                                $('#totalModal').html(sum + " บาท");
                         });
 
                         function selectCaddy(loop) {

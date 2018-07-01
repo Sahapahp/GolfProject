@@ -129,6 +129,7 @@
                                 $('#day').html('วันที่เล่น : ' + json[0].DayBook);
                                 $('#item_number').val('#' + id);
                                 $('#paypal_form').attr('action', '<?php echo base_url(); ?>assets/payments/payments.php?price=' + json[0].sumtotal);
+                                
                                 if (json[0].Timebook == 1) {
                                     time = "06.00-11.30";
                                 } else if (json[0].Timebook == 2) {
@@ -153,14 +154,15 @@
                                 }
                                 
                                 $('#caddy').html(json[0].CaddyNum + " คน");
-                                $('#ins').html(json[0].CarNum + " ชุด");
-                                $('#car').html(json[0].InsNum + " คัน");
+                                $('#ins').html(json[0].InsNum + " ชุด");
+                                $('#car').html(json[0].CarNum + " คัน");
 
                                 
                                 $('#totalcaddy').html((json[0].CaddyNum * PriceItem[0].priceCaddy) + " บาท");
                                 $('#discount').html('-'+json[0].discount + " บาท");
-                                $('#totalins').html((json[0].CarNum * PriceItem[0].priceCar) + " บาท");
-                                $('#totalcar').html((json[0].InsNum * PriceItem[0].priceIns) + " บาท");
+                                $('#totalins').html((json[0].InsNum * PriceItem[0].priceCar) + " บาท");
+                                $('#totalcar').html((json[0].CarNum * PriceItem[0].priceIns) + " บาท");
+                                
                                 ///หาวัน 0-6 0=อาทิตย์
                                 var day = new Date(json[0].DayBook);
                                 var bookDay = day.getDay();
@@ -174,11 +176,11 @@
                                     alert('date error!!!');
                                 }
                                 console.log(bookDay);
-                                if ($('#timeplay').val() == 1) {
+                                if (json[0].Timebook == 1) {
                                     time = '06.00-11.30';
-                                } else if ($('#timeplay').val() == 2) {
+                                } else if (json[0].Timebook == 2) {
                                     time = '11.30-15.00';
-                                } else if ($('#timeplay').val() == 3) {
+                                } else if (json[0].Timebook == 3) {
                                     time = '15.00-19.00';
                                 } else {
                                     time = '17.00-19.00';

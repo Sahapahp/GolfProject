@@ -32,7 +32,7 @@ class Employee_model extends CI_Model {
     }
 
     public function updateEmp($data, $id) {
-        header("location: callshow ");
+        header("location: callcaddyshow ");
         $this->db->update('employee', $data, $id);
     }
 

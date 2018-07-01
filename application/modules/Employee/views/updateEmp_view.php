@@ -78,7 +78,10 @@
       <option value="0 ">ใช้งาน</option>
       <option value="1">ไม่ใช้งาน</option>
   </select>  </div> 
-  
+  <div class="form-group">
+                        ประสบการณ์
+                        <textarea class="form-control" name="experience" rows="5" cols="40" required="" ></textarea> 
+                    </div> 
   
 <input  type="submit" colspan="1" class="btn btn-info  pull-right" value="ยืนยัน"/> 
   
@@ -107,6 +110,7 @@
                 $('input[name="Email"]').val(dataJson[0].Email);
                 $('input[name="Position"]').val(dataJson[0].Position);
                 $('input[name="OnlineStatus"]').val(dataJson[0].OnlineStatus);
+                $('textarea[name="experience"]').val(dataJson[0].experience);
                 
                 
             });

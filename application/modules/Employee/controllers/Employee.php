@@ -126,6 +126,7 @@ class Employee extends MX_Controller {
         $Email = $this->input->post('Email');
         $Position = $this->input->post('Position');
         $OnlineStatus = $this->input->post('OnlineStatus');
+        $experience = $this->input->post('experience');
 
         /* echo $FName; */
 
@@ -139,13 +140,14 @@ class Employee extends MX_Controller {
             'Email' => $Email,
             'Position' => $Position,
             'OnlineStatus' => $OnlineStatus,
+            'experience' => $experience
         );
 
         $idData = array(
             'IdEmp' => $id
         );
         return $this->Employee_model->updateEmp($data, $idData);
-        redirect('Employee/callshow', 'refresh');
+        redirect('Employee/callcaddyshow', 'refresh');
     }
 
     public function updateAdd() {
